@@ -15,6 +15,7 @@ class Dog : public Animal
 		void	makeSound() const;
 	protected :
 	private :
+		Brain *brain;
 };
 
 #endif

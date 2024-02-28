@@ -3,7 +3,7 @@
 WrongAnimal::WrongAnimal()
 {
 	std::cout << "Default WrongAnimal constructor called"<< std::endl;
-	_type = "WrongAnimal";
+	_type = "Unspecified WrongAnimal";
 }
 
 WrongAnimal::WrongAnimal(const WrongAnimal &copy)
@@ -14,7 +14,7 @@ WrongAnimal::WrongAnimal(const WrongAnimal &copy)
 
 WrongAnimal::~WrongAnimal()
 {
-	std::cout <<this->_type << " destructor called" << std::endl;
+	std::cout << "WrongAnimal destructor called" << std::endl;
 }
 
 WrongAnimal &WrongAnimal::operator=(const WrongAnimal &other)

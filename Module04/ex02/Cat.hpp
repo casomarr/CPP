@@ -3,9 +3,9 @@
 
 #include <string>
 #include <iostream>
-#include "Animal.hpp"
+#include "AAnimal.hpp"
 
-class Cat : public Animal
+class Cat : public AAnimal
 {
 	public :
 		Cat();
@@ -15,6 +15,7 @@ class Cat : public Animal
 		void	makeSound() const;
 	protected :
 	private :
+		Brain *brain;
 };
 
 #endif
