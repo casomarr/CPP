@@ -6,7 +6,7 @@
 #    By: casomarr <casomarr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/13 17:13:39 by casomarr          #+#    #+#              #
-#    Updated: 2024/02/27 17:28:00 by casomarr         ###   ########.fr        #
+#    Updated: 2024/02/28 14:56:13 by casomarr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,10 +29,18 @@ RM = rm -f
 
 ### INCLUDES
 HEADERS = Animal.hpp \
+		Cat.hpp \
+		Dog.hpp \
+		WrongAnimal.hpp \
+		WrongCat.hpp \
 
 ### SOURCES
 SRCS = main.cpp \
 	Animal.cpp \
+		Cat.cpp \
+		Dog.cpp \
+		WrongAnimal.cpp \
+		WrongCat.cpp \
 
 ### OBJECTS
 OBJS = $(SRCS:.cpp=.o)

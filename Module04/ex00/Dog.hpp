@@ -3,6 +3,7 @@
 
 #include <string>
 #include <iostream>
+#include "Animal.hpp"
 
 class Dog : public Animal
 {
@@ -11,9 +12,9 @@ class Dog : public Animal
 		Dog(const Dog &copy);
 		~Dog();
 		Dog &operator=(const Dog &other);
+		void	makeSound();
 	protected :
 	private :
-		std::string	_type; //ici?
-}
+};
 
 #endif
