@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: casomarr <casomarr@student.42.fr>          +#+  +:+       +#+         #
+#    By: octonaute <octonaute@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/13 17:13:39 by casomarr          #+#    #+#              #
-#    Updated: 2024/02/28 19:12:21 by casomarr         ###   ########.fr        #
+#    Updated: 2024/02/29 18:42:21 by octonaute        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@
 #                                  CONFIGURATION                               #
 # **************************************************************************** #
 
-NAME = animal
+NAME = materia
 
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
@@ -28,10 +28,23 @@ RM = rm -f
 # **************************************************************************** #
 
 ### INCLUDES
-HEADERS = \
+HEADERS = AMateria.hpp \
+		Ice.hpp \
+		Cure.hpp \
+		Character.hpp \
+		ICharacter.hpp \
+		MateriaSource.hpp \
+		IMateriaSource.hpp \
 
 ### SOURCES
 SRCS = main.cpp \
+		AMateria.cpp \
+		Ice.cpp \
+		Cure.cpp \
+		Character.cpp \
+		ICharacter.cpp \
+		MateriaSource.cpp \
+		IMateriaSource.cpp \
 
 ### OBJECTS
 OBJS = $(SRCS:.cpp=.o)
