@@ -1,73 +1,87 @@
+#include "Character.hpp"
 #include "AMateria.hpp" //l'ordre compte!
-#include "Character.hpp"
-#include "Character.hpp"
+#include "ICharacter.hpp"
 
 Character::Character()
 {
 	_name = "";
 	for (int i = 0; i < 4; i++)
-		_inventory[i].type = "";
+		_inventory[i] = NULL;
+		// _inventory[i]->setType("");
+	std::cout <<"Character default constructor" <<std::endl;
+}
+
+Character::Character(std::string const &name) : _name(name)
+{
+	for (int i = 0; i < 4; i++)
+		_inventory[i] = NULL;
+	std::cout <<"Character constructor with name" <<std::endl;
 }
 
 Character::Character(Character const & copy)
 {
 	//doit delete les Materias du Character originel
 	//(avant qu'elles oient remplacées par les Materias de copy)
-	for (int i = 0; i < 4, i++)
+
+	/* for (int i = 0; i < 4; i++)
 	{
-		if (_inventory[i].type != "")
+		_name = copy._name;
+		if (_inventory[i] != NULL)
 			delete _inventory[i];
-	}
+	} */
 	*this = copy;
 }
 
 Character & Character::operator=(Character const & other)
 {
-	_type = other._type;
+	_name = other._name;
+	for (int i = 0; i < 4; i++)
+	{
+		if (_inventory[i] != NULL) //TODO: check
+			delete _inventory[i];
+		_inventory[i] = other._inventory[i];
+	}
 	return *this;
 }
 
 Character::~Character()
 {
 	//delete Materias
-	for (int i = 0; i < 4, i++)
+/* 	for (int i = 0; i < 4; i++) //Materias already deleted in MateriaSource??
 	{
-		if (_inventory[i].type != "")
+		if (_inventory[i] != NULL)
 			delete _inventory[i];
-	}
+	} */
+	std::cout <<"Character destructor" <<std::endl;
 }
 
-void Character::equip(AMateria* m) //pas ici car fx = 0 dans le .hpp
+void Character::equip(AMateria* m)
 {
 	for(int i = 0; i< 4; i++)
 	{
-		if (_inventory[i].type == "")
+		if (_inventory[i] == NULL)
+		{
 			_inventory[i] = m;
+			return ;
+		}
 	}
 }
 
-void Character::unequip(int idx) //pas ici car fx = 0 dans le .hpp
+void Character::unequip(int idx)
 {
-	_inventory[idx] = ""; //pas le droit de delete dans cette fonction :
-	//rajouter une variable privé qui enregistre l'adresse de la variable
-	// qu'on unequip pour la delete dans une autre fonction
+	_inventory[idx] = NULL; //pas besoin de delete dans cette fonction 
 }
 
-void Character::use(int idx, Character& target)
+void Character::use(int idx, ICharacter& target)
 {
-	//TODO:
-	(void)idx;
-	(void)target;
+	//TODO: check
+	if (idx >= 0 && idx <= 3 &&_inventory[idx] != NULL)
+		_inventory[idx]->use(target);
 }
 
 std::string const &Character::getName() const
 {
-	//TODO:
-}
-
-Character::Character(std::string name)
-{
-	_name = name;
+	return _name;
 }
 
 //pour tests
@@ -75,5 +89,10 @@ void	Character::printInventory() const
 {
 	std::cout <<"Inventory :" <<std::endl;
 	for(int i = 0; i< 4; i++)
-		std::cout <<_inventory[i].type <<std::endl;
+	{
+		if (_inventory[i] != NULL)
+			std::cout <<_inventory[i]->getType() <<std::endl;
+		else
+			std::cout <<"NULL" <<std::endl;
+	}
 }

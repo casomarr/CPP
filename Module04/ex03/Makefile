@@ -6,7 +6,7 @@
 #    By: octonaute <octonaute@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/13 17:13:39 by casomarr          #+#    #+#              #
-#    Updated: 2024/02/29 18:42:21 by octonaute        ###   ########.fr        #
+#    Updated: 2024/03/01 17:16:45 by octonaute        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,8 +32,8 @@ HEADERS = AMateria.hpp \
 		Ice.hpp \
 		Cure.hpp \
 		Character.hpp \
-		ICharacter.hpp \
 		MateriaSource.hpp \
+		ICharacter.hpp \
 		IMateriaSource.hpp \
 
 ### SOURCES
@@ -42,9 +42,7 @@ SRCS = main.cpp \
 		Ice.cpp \
 		Cure.cpp \
 		Character.cpp \
-		ICharacter.cpp \
 		MateriaSource.cpp \
-		IMateriaSource.cpp \
 
 ### OBJECTS
 OBJS = $(SRCS:.cpp=.o)

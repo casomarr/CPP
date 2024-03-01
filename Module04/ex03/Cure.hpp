@@ -15,6 +15,6 @@ class Cure : public AMateria
 		virtual AMateria* clone() const;
 		virtual void use(ICharacter& target);
 	protected :
-		std::string _type;
+		// std::string _type;
 	private :
 };
