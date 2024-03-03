@@ -1,11 +1,14 @@
-#include "AMateria.hpp" //en dehors de pragma once!!!
 #pragma once
+// #include "AMateria.hpp"
 
 #include <iostream>
 #include <string>
 
-class AMateria; //Nécessaire?
+class AMateria;
 
+/* Interface classes don't get a corresponfing .cpp
+file since all their functions are purely virtual 
+(they end with "= 0" when declared) */
 class ICharacter
 {
 	public :
@@ -17,5 +20,3 @@ class ICharacter
 	protected :
 	private :
 };
-
-//pas de Icharacter.cpp puisque tous = 0 sauf le destructeur mais il est déjà défini dans la classe. 

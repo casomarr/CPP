@@ -34,18 +34,5 @@ std::string const & AMateria::getType() const
 
 void	AMateria::use(ICharacter& target)
 {
-	//TODO: check
 	std::cout << "AMateria " << this->_type << " used on " << target.getName() << std::endl;
-}
-
-/* void AMateria::setType(std::string type)
-{
-	_type = type;
-} */
-
-AMateria* AMateria::clone() const //vu que =0 dans .hpp pas besoin??
-{
-	//TODO: check
-	//delete qq chose? c'est ici que valgrind montre pb (appelé pour cure et ice dans MatericalSource::createMateria)
-	return (AMateria*)this; //cast car const
 }

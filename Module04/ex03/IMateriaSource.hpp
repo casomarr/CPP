@@ -13,5 +13,3 @@ class IMateriaSource
 	protected :
 	private :
 };
-
-//pas de IMateriaSource.cpp puisque tous = 0 sauf le destructeur mais il est déjà défini dans la classe. 

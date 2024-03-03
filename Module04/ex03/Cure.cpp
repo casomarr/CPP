@@ -2,10 +2,6 @@
 #include "AMateria.hpp"
 #include "ICharacter.hpp"
 
-// Cure::Cure() : _type("cure")
-// {
-// }
-
 Cure::Cure() : AMateria("cure")
 {
 	std::cout << "Cure constructor" << std::endl;
@@ -34,6 +30,5 @@ AMateria* Cure::clone() const
 
 void Cure::use(ICharacter& target)
 {
-	//TODO: check if print needed
 	std::cout <<"* heals " <<target.getName() <<"'s wounds "<<std::endl;
 }

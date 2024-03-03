@@ -9,7 +9,6 @@ class Character : public ICharacter
 {
 	public :
 		Character();
-		// Character(std::string name);
 		Character(std::string const &name);
 		Character(Character const & copy);
 		Character &operator=(Character const & other);
@@ -20,10 +19,7 @@ class Character : public ICharacter
 		void unequip(int idx);
 		void use(int idx, ICharacter& target);
 		
-		//pour tests
-		void	printInventory() const;
 	protected :
 		AMateria *_inventory[4];
 		std::string _name;
-	private :
 };
