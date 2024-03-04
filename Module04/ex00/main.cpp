@@ -25,9 +25,6 @@ int main()
 
 	std::cout <<std::endl <<"--------------------Animal tests----------------" << std::endl <<std::endl;
 
-	// Dog *dog = new Dog();
-	// Cat *cat = new Cat();
-
 	const Animal *animal = new Animal();
 	const Animal *dog = new Dog();
 	const Animal *cat = new Cat();
@@ -51,22 +48,23 @@ int main()
 
 	std::cout <<std::endl <<"--------------------Wrong Animal tests----------------" << std::endl <<std::endl;
 
-	const WrongAnimal *wronganimal = new WrongAnimal();
-	const WrongAnimal *wrongcat = new WrongCat();
+	const WrongAnimal *wrongcat1 = new WrongCat();
+	const WrongCat *wrongcat2 = new WrongCat();
+
 	std::cout <<std::endl;
 
-	std::cout <<"wronganimal type : " <<wronganimal->getType() << std::endl;
-	std::cout <<"wrongcat type : "<<wrongcat->getType() << std::endl;
+	std::cout <<"wrongcat1 type : " <<wrongcat1->getType() << std::endl;
+	std::cout <<"wrongcat2 type : "<<wrongcat2->getType() << std::endl;
 	std::cout <<std::endl;
 
-	std::cout <<"wronganimal sound : ";
-	wronganimal->makeSound();
-	std::cout <<"wrongcat sound : ";
-	wrongcat->makeSound();
+	std::cout <<"wrongcat1 sound : ";
+	wrongcat1->makeSound();
+	std::cout <<"wrongcat2 sound : ";
+	wrongcat2->makeSound();
 	std::cout <<std::endl;
 
-	delete wronganimal;
-	delete wrongcat;
+	delete wrongcat1;
+	delete wrongcat2;
 
 	return 0;
 }
