@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: octonaute <octonaute@student.42.fr>        +#+  +:+       +#+         #
+#    By: casomarr <casomarr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/13 17:13:39 by casomarr          #+#    #+#              #
-#    Updated: 2024/03/03 14:38:29 by octonaute        ###   ########.fr        #
+#    Updated: 2024/03/04 19:53:48 by casomarr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,8 +76,11 @@ fclean: clean
 ### REBUILD
 re: fclean all
 
+run: re
+	-./$(NAME)
+
 # **************************************************************************** #
 #                                   PHONIES                                    #
 # **************************************************************************** #
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re run

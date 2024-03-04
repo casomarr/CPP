@@ -19,19 +19,14 @@ Character::Character(std::string const &name) : _name(name)
 
 Character::Character(Character const & copy)
 {
-	*this = copy;
-
-/* 	//DEEP COPY
 	_name = copy._name;
 	for (int i = 0; i < 4; i++)
 	{
-		if (_inventory[i] != NULL)
-			delete _inventory[i];
-		if (copy._inventory[i] != NULL)
-			_inventory[i] = copy._inventory[i]->clone(); //deep copy
+		if (copy._inventory[i])
+			_inventory[i] = copy._inventory[i]->clone();
 		else
 			_inventory[i] = NULL;
-	} */
+	}
 }
 
 Character & Character::operator=(Character const & other)
@@ -41,24 +36,11 @@ Character & Character::operator=(Character const & other)
 	{
 		if (_inventory[i] != NULL)
 			delete _inventory[i];
-		_inventory[i] = other._inventory[i];
+		if (other._inventory[i])
+			_inventory[i] = other._inventory[i]->clone();
+		else
+			_inventory[i] = NULL;
 	}
-	return *this;
-
-	/* //DEEP COPY
-	if (this != &other) {
-		// First, delete any existing materia in this inventory
-		for (int i = 0; i < 4; i++) {
-			delete this->_inventory[i];
-			this->_inventory[i] = NULL; // Avoid dangling pointers
-		}
-		// Then clone the materia from the other character
-		for (int i = 0; i < 4; i++) {
-			if (other._inventory[i] != NULL) {
-				this->_inventory[i] = other._inventory[i]->clone();
-			}
-		}
-	} */
 	return *this;
 }
 
@@ -74,7 +56,9 @@ Character::~Character()
 
 void Character::equip(AMateria* m)
 {
-	for(int i = 0; i< 4; i++)
+	if (!m)
+		return ;
+	for(int i = 0; i < 4; i++)
 	{
 		if (_inventory[i] == NULL)
 		{
@@ -82,18 +66,22 @@ void Character::equip(AMateria* m)
 			return ;
 		}
 	}
+	std::cout <<"Inventory is full" <<std::endl;
+	delete m;
 }
 
 void Character::unequip(int idx)
 {
+	if (idx < 0 || idx > 3)
+		return ;
 	_inventory[idx] = NULL;
 }
 
 void Character::use(int idx, ICharacter& target)
 {
-	if (idx >= 0 && idx <= 3 &&_inventory[idx] != NULL)
+	if ((idx >= 0 && idx <= 3) && _inventory[idx] != NULL)
 		_inventory[idx]->use(target);
-	else if (_inventory[idx] == NULL)
+	else if ((idx >= 0 && idx <= 3) && _inventory[idx] == NULL)
 		std::cout <<"No materia in this slot" <<std::endl;
 	else
 		std::cout <<"Invalid index" <<std::endl;
@@ -102,4 +90,9 @@ void Character::use(int idx, ICharacter& target)
 std::string const &Character::getName() const
 {
 	return _name;
+}
+
+AMateria	*Character::getMateria(int index)
+{
+	return _inventory[index];
 }
