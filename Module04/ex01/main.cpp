@@ -10,10 +10,10 @@ int main()
 {
 //----------------------- MAIN TESTS -----------------------
 
-	/* const Animal* j = new Dog();
+	const Animal* j = new Dog();
 	const Animal* i = new Cat();
 	delete j;
-	delete i; */
+	delete i;
 
 //----------------------- PERSONAL TESTS -----------------------
 
@@ -58,10 +58,18 @@ int main()
 
 //----------------------- DEEP COPY TEST -----------------------
 
-	Dog *basic = new Dog();
-	Dog *tmp = basic;
-	delete basic;
-	std::cout <<tmp->getType() <<std::endl;
+/* 	//copy constructor
+	Dog *src = new Dog();
+	Dog *copy = new Dog(*src);
+	delete src;
+	std::cout <<"-----" <<copy->getType() <<"-----" <<std::endl;
+	delete copy;
+
+	//= operator
+	Dog basic;
+	{
+		Dog tmp = basic;
+	} */
 
 	return 0;
 }

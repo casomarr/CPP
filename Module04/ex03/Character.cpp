@@ -49,7 +49,10 @@ Character::~Character()
 	for(int i = 0; i < 4; i++)
 	{
 		if (_inventory[i] != NULL)
+		{
 			delete _inventory[i];
+			_inventory[i] = NULL;
+		}
 	}
 	std::cout <<"Character destructor" <<std::endl;
 }

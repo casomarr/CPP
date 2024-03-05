@@ -11,9 +11,8 @@ class Brain
 		Brain(const Brain &copy);
 		~Brain();
 		Brain &operator=(const Brain &other);
-	protected:
 	private:
-		std::string _ideas[100]; //ici ou en public? prive?
+		std::string _ideas[100];
 };
 
 #endif

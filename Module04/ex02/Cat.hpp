@@ -13,7 +13,6 @@ class Cat : public AAnimal
 		~Cat();
 		Cat &operator=(const Cat &other);
 		void	makeSound() const;
-	protected :
 	private :
 		Brain *brain;
 };

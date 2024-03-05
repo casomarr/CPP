@@ -12,8 +12,7 @@ class AAnimal
 		AAnimal(const AAnimal &copy);
 		virtual ~AAnimal(); //to be able to delete cat and dog
 		AAnimal &operator=(const AAnimal &other);
-		// virtual void	makeSound() = 0; // rend la classe abstraite et permet de ne pas declarer la fonction dans Animal.cpp vu que doit rester vide 
-		virtual void	makeSound() const;
+		virtual void	makeSound() const = 0; // rend la classe abstraite et permet de ne pas declarer la fonction dans Animal.cpp vu que doit rester vide 
 		const std::string	getType() const;
 	protected :
 		std::string	_type;

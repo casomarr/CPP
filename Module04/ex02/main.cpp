@@ -41,6 +41,7 @@ int main()
 		delete animal[i];
 		i++;
 	}
+	
 	//delete animal;
 
 	return 0;
