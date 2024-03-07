@@ -2,11 +2,18 @@
 
 int main()
 {
-	Bureaucrat *charly;
 	try
 	{
-		charly = new Bureaucrat("Charly", 150);
-		charly->increment();
+		Bureaucrat charly("Charly", 10);
+		std::cout <<charly;	//test increementation and decrementation
+		charly.increment();
+		std::cout <<charly;
+		charly.decrement();
+		std::cout <<charly << std::endl;
+		//test grade too high
+		Bureaucrat samantha("Samantha", 0);
+		//test grade too low
+		Bureaucrat summer("Summer", 151);
 	}
 	catch (Bureaucrat::GradeTooHighException &error)
 	{
@@ -16,7 +23,5 @@ int main()
 	{
 		std::cerr << error.what() <<std::endl; //std::cerr = std:::cout en sortie error
 	}
-	std::cout <<charly->getName() <<"'s grade is " <<charly->getGrade() <<"!" <<std::endl;
-
 	return 0;
 }
