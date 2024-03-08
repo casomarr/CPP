@@ -6,7 +6,7 @@
 #    By: octonaute <octonaute@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/13 17:13:39 by casomarr          #+#    #+#              #
-#    Updated: 2024/03/08 14:00:16 by octonaute        ###   ########.fr        #
+#    Updated: 2024/03/08 14:03:41 by octonaute        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,15 +27,27 @@ RM = rm -f
 #                                  DEPENDANCIES                                #
 # **************************************************************************** #
 
+###INCLUDES FOLDER
+INCLUDES_FOLDER = includes/
+
+###SRCS FOLDER
+SRCS_FOLDER = srcs/
+
 ### INCLUDES
-HEADERS = Bureaucrat.hpp \
-			Form.hpp \
+HEADERS = $(INCLUDES_FOLDER)/Bureaucrat.hpp \
+			$(INCLUDES_FOLDER)/AForm.hpp \
+			$(INCLUDES_FOLDER)/RobotomyRequestForm.hpp \
+			$(INCLUDES_FOLDER)/ShrubberyCreationForm.hpp \
+			$(INCLUDES_FOLDER)/PresidentialPardonForm.hpp \
 
 ### SOURCES
 SRCS = main.cpp \
-		Bureaucrat.cpp \
-		Form.cpp \
-
+		$(SRCS_FOLDER)/Bureaucrat.cpp \
+		$(SRCS_FOLDER)/AForm.cpp \
+		$(SRCS_FOLDER)/RobotomyRequestForm.cpp \
+		$(SRCS_FOLDER)/ShrubberyCreationForm.cpp \
+		$(SRCS_FOLDER)/PresidentialPardonForm.cpp \
+		
 ### OBJECTS
 OBJS = $(SRCS:.cpp=.o)
 

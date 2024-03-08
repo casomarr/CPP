@@ -19,11 +19,11 @@ Bureaucrat &Bureaucrat::operator=(Bureaucrat const &rhs)
 	return *this;
 }
 
-Bureaucrat::Bureaucrat(std::string name, int grade): _name(name) //IMPORTANT declarer ici et non dans la fonction car const string
+Bureaucrat::Bureaucrat(std::string name, int grade): _name(name)
 {
 	_grade = grade;
 	if (_grade < 1)
-		throw Bureaucrat::GradeTooLowException(); //throw dans .hpp et .cpp, try et catch dans le main
+		throw Bureaucrat::GradeTooLowException();
 	else if (_grade > 150)
 		throw Bureaucrat::GradeTooHighException();
 }

@@ -1,6 +1,6 @@
 #include "Form.hpp"
 
-Form::Form() : _name(NULL), _gradeToExecute(0), _gradeToSign(0)
+Form::Form() : _name(NULL), _gradeToSign(0), _gradeToExecute(0) //IMPORTANT: l'ordre des variables doit suivre l'ordre dans le .hpp. Puisque gradeToSign apparait avant gradeToExecute alors elle doit être initialisée avant!!
 {
 	_isSigned = false;
 }
@@ -9,7 +9,7 @@ Form::~Form()
 {
 }
 
-Form::Form(Form const &copy) : _name(copy._name), _gradeToExecute(copy._gradeToExecute), _gradeToSign(copy._gradeToSign)
+Form::Form(Form const &copy) : _name(copy._name), _gradeToSign(copy._gradeToSign), _gradeToExecute(copy._gradeToExecute)
 {
 	*this = copy;
 }
@@ -20,7 +20,7 @@ Form &Form::operator=(Form const &rhs)
 	return *this;
 }
 
-Form::Form(std::string name, int gradeToExecute, int gradeToSign) : _name(name), _gradeToExecute(gradeToExecute), _gradeToSign(gradeToSign)
+Form::Form(std::string name, int gradeToSign, int gradeToExecute) : _name(name), _gradeToSign(gradeToSign), _gradeToExecute(gradeToExecute)
 {
 	_isSigned = false;
 	if (gradeToSign < 1)
@@ -63,7 +63,7 @@ void	Form::beSigned(Bureaucrat b)
 {
 	if (b.getGrade() > _gradeToSign)
 		throw Form::GradeTooLowException();
-	_isSigned = true; //IMPORTANT: pas besoin de else car qd on throw une exception ça s'arrête direct
+	_isSigned = true;
 }
 
 std::ostream	&operator<<(std::ostream &output, Form &Form)
