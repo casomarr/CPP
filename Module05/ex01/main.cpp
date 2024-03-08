@@ -1,19 +1,24 @@
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
 
 int main()
 {
 	try
 	{
-		Bureaucrat charly("Charly", 10);
-		std::cout <<charly;	//test increementation and decrementation
-		charly.increment();
+		Form form("Boring Form", 14, 17);
+		std::cout <<form <<std::endl;;
+
+
+		Bureaucrat samantha("Samantha", 10);
+		std::cout <<samantha;
+		samantha.signForm(form);
+		std::cout << std::endl;
+
+
+		Bureaucrat charly("Charly", 70);
 		std::cout <<charly;
-		charly.decrement();
-		std::cout <<charly << std::endl;
-		//test grade too high
-		Bureaucrat samantha("Samantha", 0);
-		//test grade too low
-		Bureaucrat summer("Summer", 151);
+		charly.signForm(form);
+		std::cout << std::endl;
 	}
 	catch (Bureaucrat::GradeTooHighException &error)
 	{

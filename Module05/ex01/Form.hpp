@@ -2,30 +2,36 @@
 
 #include <string>
 #include <iostream>
-#include <exception> //IMPORTANT
+#include <exception>
 #include <stdexcept>
+#include "Bureaucrat.hpp"
 
-class Bureaucrat
+class Bureaucrat;
+
+class Form
 {
 	private:
 		std::string const _name;
-		unsigned int const _grade;
-		bool _signed;
+		bool _isSigned = false;
+		unsigned int const _gradeToSign = 0;
+		unsigned int const _gradeToExecute = 0;
 
 	public:
-		//GRAMMAR : les 4 de forme canonique sont du type de la classe (operator n'est pas void!!)
-		Bureaucrat();
-		~Bureaucrat();
-		Bureaucrat(Bureaucrat const &copy); //GRAMMAR
-		Bureaucrat &operator=(Bureaucrat const &rhs);
+		Form();
+		~Form();
+		Form(Form const &copy);
+		Form &operator=(Form const &rhs);
 
-		Bureaucrat(std::string name, int grade);
+		Form(std::string name, int gradeToExecute, int gradeToSign);
 
 		std::string getName();
 		unsigned int getGrade();
+		unsigned int getGradeToSign();
+		unsigned int getGradeToExecute();
+		bool getIsSigned();
 
-		void increment();
-		void decrement();
+
+		void	beSigned(Bureaucrat b);
 
 		class GradeTooHighException : public std::exception
 		{
@@ -39,4 +45,4 @@ class Bureaucrat
 		};
 };
 
-std::ostream	&operator<<(std::ostream &output, Bureaucrat &bureaucrat);
+std::ostream	&operator<<(std::ostream &output, Form &Form);
