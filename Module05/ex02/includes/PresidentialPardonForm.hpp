@@ -4,8 +4,9 @@
 #include <iostream>
 #include <exception>
 #include <stdexcept>
+#include "../includes/AForm.hpp"
 
-class PresidentialPardonForm
+class PresidentialPardonForm : public AForm
 {
 	private:
 		unsigned int const _gradeToSign;
@@ -20,5 +21,5 @@ class PresidentialPardonForm
 
 		PresidentialPardonForm(int gradeToSign, int gradeToExecute);
 
-		PresidentialPardonForm(std::string target);
-}
+		void execute(Bureaucrat const & executor) const;
+};

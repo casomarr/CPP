@@ -1,6 +1,6 @@
-#include "PresidentialPardonForm.hpp"
+#include "../includes/PresidentialPardonForm.hpp"
 
-PresidentialPardonForm::PresidentialPardonForm()
+PresidentialPardonForm::PresidentialPardonForm() : _gradeToSign(0), _gradeToExecute(0), _target("")
 {
 }
 
@@ -8,15 +8,14 @@ PresidentialPardonForm::~PresidentialPardonForm()
 {
 }
 
-PresidentialPardonForm::PresidentialPardonForm(PresidentialPardonForm const &copy)
+PresidentialPardonForm::PresidentialPardonForm(PresidentialPardonForm const &copy) : AForm(copy), _gradeToSign(copy._gradeToSign), _gradeToExecute(copy._gradeToExecute), _target(copy._target)
 {
 	*this = copy;
 }
 
 PresidentialPardonForm &PresidentialPardonForm::operator=(PresidentialPardonForm const &rhs)
 {
-	_gradeToSign = rhs._grade;
-	_gradeToExecute = rhs._grade;
+	(void)rhs;
 	return *this;
 }
 
@@ -28,7 +27,12 @@ PresidentialPardonForm::PresidentialPardonForm(int gradeToSign, int gradeToExecu
 		throw PresidentialPardonForm::GradeTooLowException();
 }
 
-PresidentialPardonForm(std::string target): _target(target)
+void PresidentialPardonForm::execute(Bureaucrat const & executor) const
 {
-	//HERE
+	if ( this->getIsSigned() == false )
+		throw AForm::NotSignedException();
+	else if (executor.getGrade() < this->getGradeToExecute())
+		throw AForm::GradeTooLowException();
+		
+	std::cout <<_target <<" has been pardoned by Zaphod Beeblebrox." <<std::endl;
 }

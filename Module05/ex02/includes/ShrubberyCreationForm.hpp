@@ -4,8 +4,9 @@
 #include <iostream>
 #include <exception>
 #include <stdexcept>
+#include "../includes/AForm.hpp"
 
-class ShrubberyCreationForm
+class ShrubberyCreationForm : public AForm
 {
 	private:
 		unsigned int const _gradeToSign;
@@ -20,5 +21,5 @@ class ShrubberyCreationForm
 
 		ShrubberyCreationForm(int gradeToSign, int gradeToExecute);
 
-		ShrubberyCreationForm(std::string target);
-}
+		void execute(Bureaucrat const & executor) const;
+};
