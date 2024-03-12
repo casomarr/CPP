@@ -15,5 +15,6 @@ class Intern : public Bureaucrat
 		Intern(Intern const &copy);
 		Intern &operator=(Intern const rhs);
 
-		AForm*	makeForm(std::string formName, std::string formTarget); //bien AForm? dans le sujet disent Form
+		//Malgr'e l'exemple dans le sujet c est bien AForm!
+		AForm*	makeForm(std::string formName, std::string formTarget);
 }

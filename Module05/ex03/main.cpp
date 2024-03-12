@@ -3,10 +3,11 @@
 #include "includes/ShrubberyCreationForm.hpp"
 #include "includes/RobotomyRequestForm.hpp"
 #include "includes/PresidentialPardonForm.hpp"
+#include "includes/Intern.hpp"
 
 int main()
 {
-	try
+	/* try
 	{
 		std::cout << std::endl;
 		Bureaucrat samantha("Samantha", 30);
@@ -54,7 +55,13 @@ int main()
 	catch (Bureaucrat::GradeTooLowException &error)
 	{
 		std::cerr << error.what() <<std::endl;
-	}
+	} */
+
+
+
+	Intern someRandomIntern;
+	AForm* rrf;
+	rrf = someRandomIntern.makeForm("robotomy request", "Bender");
 
 	return 0;
 }
