@@ -6,7 +6,7 @@
 #    By: casomarr <casomarr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/13 17:13:39 by casomarr          #+#    #+#              #
-#    Updated: 2024/03/12 15:59:08 by casomarr         ###   ########.fr        #
+#    Updated: 2024/03/12 17:40:34 by casomarr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ NAME = bureaucrat
 
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
-CFLAGS+= -g3
+# CFLAGS+= -g3
 
 RM = rm -f
 
