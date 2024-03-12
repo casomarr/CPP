@@ -1,6 +1,6 @@
 #include "../includes/AForm.hpp"
 
-AForm::AForm() : _name(NULL), _gradeToSign(0), _gradeToExecute(0)
+AForm::AForm() : _name("Default Name"), _gradeToSign(0), _gradeToExecute(0)
 {
 	_isSigned = false;
 }
@@ -31,12 +31,12 @@ AForm::AForm(std::string name, int gradeToSign, int gradeToExecute) : _name(name
 
 const char* AForm::GradeTooHighException::what() const throw()
 {
-	return ("Grade Too High : shouldn't exceed 150");
+	return ("the bureaucrat's grade is too high to sign the form");
 }
 
 const char* AForm::GradeTooLowException::what() const throw()
 {
-	return ("Grade Too Low : shouldn't be under 1 or under the AForm's grade to sign");
+	return ("the bureaucrat's grade is too low to sign the form");
 }
 
 std::string AForm::getName() const
@@ -68,11 +68,11 @@ void	AForm::beSigned(Bureaucrat b)
 
 std::ostream	&operator<<(std::ostream &output, AForm &AForm)
 {
-	output <<"AForm name : " << AForm.getName() << ", Grade to sign : " << AForm.getGradeToSign() << ", Grade to execute : " << AForm.getGradeToExecute() <<std::endl;
+	output <<"Form name : " << AForm.getName() << ", Grade to sign : " << AForm.getGradeToSign() << ", Grade to execute : " << AForm.getGradeToExecute() <<std::endl;
 	return (output);
 }
 
 const char* AForm::NotSignedException::what() const throw()
 {
-	return ("This form is no signed.");
+	return ("the form is not signed.");
 }

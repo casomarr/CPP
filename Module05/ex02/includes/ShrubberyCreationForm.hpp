@@ -9,8 +9,8 @@
 class ShrubberyCreationForm : public AForm
 {
 	private:
-		unsigned int const _gradeToSign;
-		unsigned int const _gradeToExecute;
+		// unsigned int const _gradeToSign;
+		// unsigned int const _gradeToExecute;
 		std::string const _target;
 
 	public:
@@ -19,7 +19,8 @@ class ShrubberyCreationForm : public AForm
 		ShrubberyCreationForm(ShrubberyCreationForm const &copy);
 		ShrubberyCreationForm &operator=(ShrubberyCreationForm const &rhs);
 
-		ShrubberyCreationForm(int gradeToSign, int gradeToExecute);
+		//ShrubberyCreationForm(int gradeToSign, int gradeToExecute);
+		ShrubberyCreationForm(const std::string &target);
 
 		void execute(Bureaucrat const & executor) const;
 };

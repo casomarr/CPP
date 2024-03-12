@@ -10,9 +10,9 @@ int main()
 		std::cout <<charly;
 		charly.decrement();
 		std::cout <<charly << std::endl;
-		//test grade too high
-		Bureaucrat samantha("Samantha", 0);
 		//test grade too low
+		Bureaucrat samantha("Samantha", -10);
+		//test grade too high
 		Bureaucrat summer("Summer", 151);
 	}
 	catch (Bureaucrat::GradeTooHighException &error)

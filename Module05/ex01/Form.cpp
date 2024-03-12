@@ -31,12 +31,12 @@ Form::Form(std::string name, int gradeToSign, int gradeToExecute) : _name(name),
 
 const char* Form::GradeTooHighException::what() const throw()
 {
-	return ("Grade Too High : shouldn't exceed 150");
+	return ("the bureaucrat's grade is too high to sign the form");
 }
 
 const char* Form::GradeTooLowException::what() const throw()
 {
-	return ("Grade Too Low : shouldn't be under 1 or under the Form's grade to sign");
+	return ("the bureaucrat's grade is too low to sign the form");
 }
 
 std::string Form::getName()

@@ -1,10 +1,14 @@
 #include "../includes/RobotomyRequestForm.hpp"
 
-RobotomyRequestForm::RobotomyRequestForm() : _gradeToSign(0), _gradeToExecute(0), _target("")
+RobotomyRequestForm::RobotomyRequestForm() : AForm("Robotomy Request Form", 72, 45), _target("Default Name")
 {
 }
 
-RobotomyRequestForm::RobotomyRequestForm(RobotomyRequestForm const &copy) : AForm(copy), _gradeToSign(copy._gradeToSign), _gradeToExecute(copy._gradeToExecute), _target(copy._target)
+RobotomyRequestForm::~RobotomyRequestForm() //IMPORTANT: undefined reference to `vtable for RobotomyRequestForm' --> qd j'oublie de mettre une variable qui est dans le .hpp dans le .cpp
+{
+}
+
+RobotomyRequestForm::RobotomyRequestForm(RobotomyRequestForm const &copy) : AForm(copy), _target(copy._target)
 {
 	//IMPORTANT: AForm(copy) ligne au dessus
 	*this = copy;
@@ -19,19 +23,15 @@ RobotomyRequestForm &RobotomyRequestForm::operator=(RobotomyRequestForm const &r
 	return *this;
 }
 
-RobotomyRequestForm::RobotomyRequestForm(int gradeToSign, int gradeToExecute): _gradeToSign(gradeToSign), _gradeToExecute(gradeToExecute)
+RobotomyRequestForm::RobotomyRequestForm(std::string &target) : AForm("Robotomy Request Form", 72, 45), _target(target)
 {
-	if (gradeToSign > 72)
-		throw RobotomyRequestForm::GradeTooLowException();
-	else if (gradeToExecute > 45)
-		throw RobotomyRequestForm::GradeTooLowException();
 }
 
 void RobotomyRequestForm::execute(Bureaucrat const & executor) const
 {
 	if ( this->getIsSigned() == false )
 		throw AForm::NotSignedException();
-	else if (executor.getGrade() < this->getGradeToExecute())
+	else if (executor.getGrade() > this->getGradeToExecute())
 		throw AForm::GradeTooLowException();
 		
 	static int i; //pas besoin de l''initialiser? //CHECK

@@ -17,10 +17,10 @@ class AForm
 		unsigned int const _gradeToExecute;
 
 	public:
-		AForm();
+		AForm(); //IMPORTANT: virtual so it can be overwritten by each form's specific values
 		virtual ~AForm();
 		AForm(AForm const &copy);
-		AForm &operator=(AForm const &rhs);
+		virtual AForm &operator=(AForm const &rhs);
 
 		AForm(std::string name, int gradeToSign, int gradeToExecute);
 

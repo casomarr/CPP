@@ -1,6 +1,6 @@
 #include "../includes/PresidentialPardonForm.hpp"
 
-PresidentialPardonForm::PresidentialPardonForm() : _gradeToSign(0), _gradeToExecute(0), _target("")
+PresidentialPardonForm::PresidentialPardonForm() : AForm("Presidential Pardon Form", 25, 5), _target("Default Name")
 {
 }
 
@@ -8,7 +8,7 @@ PresidentialPardonForm::~PresidentialPardonForm()
 {
 }
 
-PresidentialPardonForm::PresidentialPardonForm(PresidentialPardonForm const &copy) : AForm(copy), _gradeToSign(copy._gradeToSign), _gradeToExecute(copy._gradeToExecute), _target(copy._target)
+PresidentialPardonForm::PresidentialPardonForm(PresidentialPardonForm const &copy) : AForm(copy), _target(copy._target)
 {
 	*this = copy;
 }
@@ -19,19 +19,15 @@ PresidentialPardonForm &PresidentialPardonForm::operator=(PresidentialPardonForm
 	return *this;
 }
 
-PresidentialPardonForm::PresidentialPardonForm(int gradeToSign, int gradeToExecute): _gradeToSign(gradeToSign), _gradeToExecute(gradeToExecute)
+PresidentialPardonForm::PresidentialPardonForm(std::string &target) : AForm("Presidential Pardon Form", 25, 5), _target(target)
 {
-	if (gradeToSign > 25)
-		throw PresidentialPardonForm::GradeTooLowException();
-	else if (gradeToExecute > 5)
-		throw PresidentialPardonForm::GradeTooLowException();
 }
 
 void PresidentialPardonForm::execute(Bureaucrat const & executor) const
 {
 	if ( this->getIsSigned() == false )
 		throw AForm::NotSignedException();
-	else if (executor.getGrade() < this->getGradeToExecute())
+	else if (executor.getGrade() > this->getGradeToExecute())
 		throw AForm::GradeTooLowException();
 		
 	std::cout <<_target <<" has been pardoned by Zaphod Beeblebrox." <<std::endl;
