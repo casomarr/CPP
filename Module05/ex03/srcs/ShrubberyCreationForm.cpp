@@ -21,8 +21,7 @@ ShrubberyCreationForm::ShrubberyCreationForm(ShrubberyCreationForm const &copy) 
 
 ShrubberyCreationForm &ShrubberyCreationForm::operator=(ShrubberyCreationForm const &rhs)
 {
-	(void)rhs;
-	// _target = rhs._target;
+	_target = rhs._target;
 	return *this;
 }
 
@@ -43,7 +42,7 @@ void	ShrubberyCreationForm::execute(Bureaucrat const & executor) const
 	filename = _target + "_shrubbery";
 	file.open(filename.c_str(), std::ios::out); //"out" to write content ("in" to read)
 	if (!file)
-		throw std::runtime_error("Failed to open Shrubbery file"); //CHECK (adapter main?) //garder std::runtime error???
+		throw std::runtime_error("Failed to open Shrubbery file");
 
 	file << "                      %%%,%%%%%%%" <<std::endl;
 	file << "                   ,'%% \\-*%%%%%%%" <<std::endl;
@@ -55,4 +54,11 @@ void	ShrubberyCreationForm::execute(Bureaucrat const & executor) const
 	file << "                     _.) ,/ *%," <<std::endl;
 	file << "             _________/)#(_______" <<std::endl;
 	file.close();
+	std::cout <<executor.getName() <<" executed " <<this->getName() <<std::endl;
 }
+
+std::string ShrubberyCreationForm::getTarget() const
+{
+	return _target;
+}
+

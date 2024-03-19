@@ -4,22 +4,18 @@ RobotomyRequestForm::RobotomyRequestForm() : AForm("Robotomy Request Form", 72, 
 {
 }
 
-RobotomyRequestForm::~RobotomyRequestForm() //IMPORTANT: undefined reference to `vtable for RobotomyRequestForm' --> qd j'oublie de mettre une variable qui est dans le .hpp dans le .cpp
+RobotomyRequestForm::~RobotomyRequestForm() //IMPORTANT: "error: undefined reference to `vtable for RobotomyRequestForm'" --> when forgot to write a variable that figures in the .hpp inside the .cpp
 {
 }
 
 RobotomyRequestForm::RobotomyRequestForm(RobotomyRequestForm const &copy) : AForm(copy), _target(copy._target)
 {
-	//IMPORTANT: AForm(copy) ligne au dessus
 	*this = copy;
 }
 
-RobotomyRequestForm &RobotomyRequestForm::operator=(RobotomyRequestForm const &rhs) /* : _gradeToSign(rhs._gradeToSign), _gradeToExecute(rhs._gradeToExecute) */
+RobotomyRequestForm &RobotomyRequestForm::operator=(RobotomyRequestForm const &rhs)
 {
-/* 	_gradeToSign = rhs._gradeToSign;
-	_gradeToExecute = rhs._gradeToExecute;
-	_target = rhs._target; */
-	(void)rhs;
+	_target = rhs._target;
 	return *this;
 }
 
@@ -34,7 +30,7 @@ void RobotomyRequestForm::execute(Bureaucrat const & executor) const
 	else if (executor.getGrade() > this->getGradeToExecute())
 		throw AForm::GradeTooLowException();
 		
-	static int i; //pas besoin de l''initialiser? //CHECK
+	static int i; //GRAMMAR: in c++, static int are automatically initialized to 0
 
 	std::cout <<"ZZZZZZZZZZZZ" <<std::endl;
 
@@ -42,4 +38,11 @@ void RobotomyRequestForm::execute(Bureaucrat const & executor) const
 		std::cout <<_target <<" has been robotomized successfully." <<std::endl;
 	else
 		std::cout <<"The robotomy failed." <<std::endl;
+	i++;
+		std::cout <<executor.getName() <<" executed " <<this->getTarget() <<std::endl;
+}
+
+std::string RobotomyRequestForm::getTarget() const
+{
+	return _target;
 }

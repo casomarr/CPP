@@ -7,7 +7,7 @@
 
 int main()
 {
-	/* try
+	try
 	{
 		std::cout << std::endl;
 		Bureaucrat samantha("Samantha", 30);
@@ -55,13 +55,24 @@ int main()
 	catch (Bureaucrat::GradeTooLowException &error)
 	{
 		std::cerr << error.what() <<std::endl;
-	} */
+	}
 
 
+	try
+	{
+		Intern someRandomIntern;
+		AForm* form1;
+		form1 = someRandomIntern.makeForm("robotomy request", "Bender"); //does not write anything on stdout
+		delete form1;
 
-	Intern someRandomIntern;
-	AForm* rrf;
-	rrf = someRandomIntern.makeForm("robotomy request", "Bender");
+		AForm* form2;
+		form2 = someRandomIntern.makeForm("erroneous request", "Paul");
+		delete form2;
+	}
+	catch (Intern::FormNotFoundException &error)
+	{
+		std::cerr <<error.what() <<std::endl;
+	}
 
 	return 0;
 }

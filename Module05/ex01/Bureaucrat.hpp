@@ -2,8 +2,7 @@
 
 #include <string>
 #include <iostream>
-#include <exception> //IMPORTANT
-#include <stdexcept>
+#include <exception>
 #include "Form.hpp"
 
 class Form;
@@ -15,10 +14,9 @@ class Bureaucrat
 		unsigned int _grade;
 
 	public:
-		//GRAMMAR : les 4 de forme canonique sont du type de la classe (operator n'est pas void!!)
 		Bureaucrat();
 		~Bureaucrat();
-		Bureaucrat(Bureaucrat const &copy); //GRAMMAR
+		Bureaucrat(Bureaucrat const &copy);
 		Bureaucrat &operator=(Bureaucrat const &rhs);
 
 		Bureaucrat(std::string name, int grade);

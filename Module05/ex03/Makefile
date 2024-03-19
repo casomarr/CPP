@@ -6,7 +6,7 @@
 #    By: casomarr <casomarr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/13 17:13:39 by casomarr          #+#    #+#              #
-#    Updated: 2024/03/12 17:40:34 by casomarr         ###   ########.fr        #
+#    Updated: 2024/03/19 14:10:34 by casomarr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,7 @@ HEADERS = $(INCLUDES_FOLDER)/Bureaucrat.hpp \
 			$(INCLUDES_FOLDER)/RobotomyRequestForm.hpp \
 			$(INCLUDES_FOLDER)/ShrubberyCreationForm.hpp \
 			$(INCLUDES_FOLDER)/PresidentialPardonForm.hpp \
+			$(INCLUDES_FOLDER)/Intern.hpp \
 
 ### SOURCES
 SRCS = main.cpp \
@@ -47,6 +48,7 @@ SRCS = main.cpp \
 		$(SRCS_FOLDER)/RobotomyRequestForm.cpp \
 		$(SRCS_FOLDER)/ShrubberyCreationForm.cpp \
 		$(SRCS_FOLDER)/PresidentialPardonForm.cpp \
+		$(SRCS_FOLDER)/Intern.cpp \
 		
 ### OBJECTS
 OBJS = $(SRCS:.cpp=.o)

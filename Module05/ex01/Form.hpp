@@ -3,7 +3,6 @@
 #include <string>
 #include <iostream>
 #include <exception>
-#include <stdexcept>
 #include "Bureaucrat.hpp"
 
 class Bureaucrat;
@@ -25,11 +24,9 @@ class Form
 		Form(std::string name, int gradeToSign, int gradeToExecute);
 
 		std::string getName();
-		unsigned int getGrade();
+		bool getIsSigned();
 		unsigned int getGradeToSign();
 		unsigned int getGradeToExecute();
-		bool getIsSigned();
-
 
 		void	beSigned(Bureaucrat b);
 

@@ -22,11 +22,11 @@ int main()
 	}
 	catch (Bureaucrat::GradeTooHighException &error)
 	{
-		std::cerr << error.what() <<std::endl; //std::cerr = std:::cout en sortie error
+		std::cerr << error.what() <<std::endl;
 	}
 	catch (Bureaucrat::GradeTooLowException &error)
 	{
-		std::cerr << error.what() <<std::endl; //std::cerr = std:::cout en sortie error
+		std::cerr << error.what() <<std::endl;
 	}
 	return 0;
 }

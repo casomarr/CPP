@@ -3,7 +3,6 @@
 #include <string>
 #include <iostream>
 #include <exception>
-#include <stdexcept>
 #include "Bureaucrat.hpp"
 
 class Bureaucrat;
@@ -17,12 +16,12 @@ class AForm
 		unsigned int const _gradeToExecute;
 
 	public:
-		AForm(); //IMPORTANT: virtual so it can be overwritten by each form's specific values
+		AForm();
 		virtual ~AForm();
 		AForm(AForm const &copy);
 		virtual AForm &operator=(AForm const &rhs);
 
-		AForm(std::string name, int gradeToSign, int gradeToExecute);
+		 AForm(std::string name, int gradeToSign, int gradeToExecute);
 
 		std::string getName() const;
 		unsigned int getGrade() const;

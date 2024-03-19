@@ -15,11 +15,11 @@ PresidentialPardonForm::PresidentialPardonForm(PresidentialPardonForm const &cop
 
 PresidentialPardonForm &PresidentialPardonForm::operator=(PresidentialPardonForm const &rhs)
 {
-	(void)rhs;
+	_target = rhs._target;
 	return *this;
 }
 
-PresidentialPardonForm::PresidentialPardonForm(std::string &target) : AForm("Presidential Pardon Form", 25, 5), _target(target)
+PresidentialPardonForm::PresidentialPardonForm(const std::string &target) : AForm("Presidential Pardon Form", 25, 5), _target(target)
 {
 }
 
@@ -31,4 +31,11 @@ void PresidentialPardonForm::execute(Bureaucrat const & executor) const
 		throw AForm::GradeTooLowException();
 		
 	std::cout <<_target <<" has been pardoned by Zaphod Beeblebrox." <<std::endl;
+		std::cout <<executor.getName() <<" executed " <<this->getTarget() <<std::endl;
+
+}
+
+std::string PresidentialPardonForm::getTarget() const
+{
+	return _target;
 }

@@ -16,10 +16,7 @@ RobotomyRequestForm::RobotomyRequestForm(RobotomyRequestForm const &copy) : AFor
 
 RobotomyRequestForm &RobotomyRequestForm::operator=(RobotomyRequestForm const &rhs) /* : _gradeToSign(rhs._gradeToSign), _gradeToExecute(rhs._gradeToExecute) */
 {
-/* 	_gradeToSign = rhs._gradeToSign;
-	_gradeToExecute = rhs._gradeToExecute;
-	_target = rhs._target; */
-	(void)rhs;
+	_target = rhs._target;
 	return *this;
 }
 
@@ -42,4 +39,11 @@ void RobotomyRequestForm::execute(Bureaucrat const & executor) const
 		std::cout <<_target <<" has been robotomized successfully." <<std::endl;
 	else
 		std::cout <<"The robotomy failed." <<std::endl;
+	i++;
+	std::cout <<executor.getName() <<" executed " <<this->getName() <<std::endl;
+}
+
+std::string RobotomyRequestForm::getTarget() const
+{
+	return _target;
 }

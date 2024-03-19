@@ -24,14 +24,14 @@ Form::Form(std::string name, int gradeToSign, int gradeToExecute) : _name(name),
 {
 	_isSigned = false;
 	if (gradeToSign < 1)
-		throw Form::GradeTooLowException();
-	else if (gradeToSign > 150)
 		throw Form::GradeTooHighException();
+	else if (gradeToSign > 150)
+		throw Form::GradeTooLowException();
 }
 
 const char* Form::GradeTooHighException::what() const throw()
 {
-	return ("the bureaucrat's grade is too high to sign the form");
+	return ("the bureaucrat's grade cannot be higher than 1");
 }
 
 const char* Form::GradeTooLowException::what() const throw()

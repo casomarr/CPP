@@ -3,15 +3,12 @@
 #include <string>
 #include <iostream>
 #include <exception>
-#include <stdexcept>
 #include "../includes/AForm.hpp"
 
 class PresidentialPardonForm : public AForm
 {
 	private:
-		// unsigned int const _gradeToSign;
-		// unsigned int const _gradeToExecute;
-		std::string const _target;
+		std::string _target;
 
 	public:
 		PresidentialPardonForm();
@@ -19,8 +16,8 @@ class PresidentialPardonForm : public AForm
 		PresidentialPardonForm(PresidentialPardonForm const &copy);
 		PresidentialPardonForm &operator=(PresidentialPardonForm const &rhs);
 
-		// PresidentialPardonForm(int gradeToSign, int gradeToExecute);
 		PresidentialPardonForm(std::string &target);
+		std::string getTarget() const;
 
 		void execute(Bureaucrat const & executor) const;
 };
