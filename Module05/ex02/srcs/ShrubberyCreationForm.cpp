@@ -25,7 +25,7 @@ ShrubberyCreationForm &ShrubberyCreationForm::operator=(ShrubberyCreationForm co
 	return *this;
 }
 
-ShrubberyCreationForm::ShrubberyCreationForm(const std::string &target): AForm("Shrubbery form default name", 145, 137), _target(target)
+ShrubberyCreationForm::ShrubberyCreationForm(const std::string &target): AForm("Shrubbery Creation Form", 145, 137), _target(target)
 {
 }
 
@@ -58,10 +58,4 @@ void	ShrubberyCreationForm::execute(Bureaucrat const & executor) const
 	file << "                     _.) ,/ *%," <<std::endl;
 	file << "             _________/)#(_______" <<std::endl;
 	file.close();
-	std::cout <<executor.getName() <<" executed " <<this->getTarget() <<std::endl;
-}
-
-std::string ShrubberyCreationForm::getTarget() const
-{
-	return _target;
 }

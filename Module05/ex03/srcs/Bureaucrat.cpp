@@ -98,4 +98,5 @@ void	Bureaucrat::executeForm(AForm const & form) //IMPORTANT: error message "inv
 		std::cerr <<"Failed to execute " <<form.getName() <<" because " <<e.what() <<std::endl;
 		return ;
 	}
+	std::cout <<this->getName() <<" executed " <<form.getName() <<std::endl;
 }

@@ -52,7 +52,7 @@ AForm*	Intern::makeForm(std::string formName, std::string formTarget)
 			return ret;
 		}
 	}
-	for (int i = 0; i < 3; i++) //IMPORTANT idem que en aut: doit se supprimer car pas returned dans le main
+	for (int i = 0; i < 3; i++) //IMPORTANT idem que en haut: doit se supprimer car pas returned dans le main
 		delete forms[i];
 	throw Intern::FormNotFoundException();
 }

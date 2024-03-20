@@ -40,10 +40,4 @@ void RobotomyRequestForm::execute(Bureaucrat const & executor) const
 	else
 		std::cout <<"The robotomy failed." <<std::endl;
 	i++;
-	std::cout <<executor.getName() <<" executed " <<this->getName() <<std::endl;
-}
-
-std::string RobotomyRequestForm::getTarget() const
-{
-	return _target;
 }

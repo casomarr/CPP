@@ -17,7 +17,6 @@ class RobotomyRequestForm : public AForm
 		RobotomyRequestForm &operator=(RobotomyRequestForm const &rhs);
 
 		RobotomyRequestForm(std::string &target);
-		std::string getTarget() const;
 
 		void execute(Bureaucrat const & executor) const;
 }; //IMPORTANT: "error: new types may not be defined in a return type" --> oublié le ; à la fin de la classe
