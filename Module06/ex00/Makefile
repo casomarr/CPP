@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: casomarr <casomarr@student.42.fr>          +#+  +:+       +#+         #
+#    By: octonaute <octonaute@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/13 17:13:39 by casomarr          #+#    #+#              #
-#    Updated: 2024/03/21 18:35:17 by casomarr         ###   ########.fr        #
+#    Updated: 2024/03/22 11:23:06 by octonaute        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@
 #                                  CONFIGURATION                               #
 # **************************************************************************** #
 
-NAME = bureaucrat
+NAME = literals
 
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
