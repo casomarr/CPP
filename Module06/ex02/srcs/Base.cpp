@@ -12,11 +12,11 @@ Base *Base::generate(void)
 	switch (random_number)
 	{
 		case 1:
-			return new A();
+			return new A;
 		case 2:
-			return new B();
+			return new B;
 		default:
-			return new C();
+			return new C;
 	}
 }
 
