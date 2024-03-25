@@ -26,7 +26,7 @@ static bool is_number(std::string const &literal)
 	{
 		if (std::isdigit(literal[i]) == 0 && literal[i] != '-' && literal[i] != '+' && literal[i] != '.') //if not a digit
 		{
-			if (i == (literal.length() - 1) && literal[i] == 'f')
+			if (i == (literal.length() - 1) && (literal[i] == 'f' || literal[i] == 'F'))
 				return true;
 			return false;
 		}
@@ -84,11 +84,15 @@ void ScalarConverter::convert(std::string const &literal)
 		std::cout <<literal <<" to float: " <<std::atof(literal.c_str()) <<".0f" <<std::endl;
 		std::cout <<literal <<" to double: " <<std::atof(literal.c_str()) <<".0" <<std::endl;
 	}
-	else //not a digit
+	else if (literal.length() == 1)//not a digit (and therefore length should be of 1)
 	{
 		std::cout <<literal <<" to char: " <<static_cast<char>(literal[0]) <<std::endl;
 		std::cout <<literal <<" to int: " <<static_cast<int>(literal[0]) <<std::endl;
 		std::cout <<literal <<" to float: " <<static_cast<float>(literal[0]) <<".0f" <<std::endl;
 		std::cout <<literal <<" to double: " <<static_cast<double>(literal[0]) <<".0" <<std::endl;
+	}
+	else
+	{
+		std::cout <<"invalid input" <<std::endl;
 	}
 }
