@@ -9,7 +9,7 @@ int main()
 	base.identify(random_class);
 	base.identify(*random_class);
 
+	delete random_class;
+
 	return 0;
 }
-
-//FIX: qd j'esssaye de compiler ça dit qu'il faut -std=c++11 pour que ça marche

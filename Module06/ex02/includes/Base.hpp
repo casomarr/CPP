@@ -6,9 +6,6 @@
 #include <cctype>
 #include <cmath>
 #include <ctime> //for std::time
-// #include <random>
-
-//CHECK if accepted by norm to have all classes in the same .hpp file
 
 class Base
 {
@@ -22,7 +19,7 @@ class Base
 class A : public Base
 {
 	public:
-		A() {}; //CHECK si j'ai le droit de les déclarer ici de la sorte
+		A() {};
 };
 
 class B : public Base

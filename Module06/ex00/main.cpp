@@ -1,6 +1,6 @@
 #include "includes/ScalarConverter.hpp"
 
-/* int main(int argc, char **argv) //main à envoyer
+int main(int argc, char **argv) //main à envoyer
 {
     int i = 1;
     if (argc < 2)
@@ -15,11 +15,11 @@
         i++;
     }
     return 0;
-} */
+}
 
-int main() //main de tests pour moi
+/* int main()
 {
-    ScalarConverter::convert("c"); //GRAMMAR: pour appeler la fonction d'une classe non instantiable
+    ScalarConverter::convert("c"); //GRAMMAR: to call a function from an uninstantiable class
     std::cout <<std::endl;
     ScalarConverter::convert("4");
     std::cout <<std::endl;
@@ -31,12 +31,11 @@ int main() //main de tests pour moi
     std::cout <<std::endl;
     ScalarConverter::convert("inf");
     std::cout <<std::endl;
-    ScalarConverter::convert("42*/");
+    ScalarConverter::convert("42^/");
     std::cout <<std::endl;
-    //CHECK: Ces deux derniers tests, demander ce que je suis sensée afficher
-    // ScalarConverter::convert("");
-    // std::cout <<std::endl;
-    // ScalarConverter::convert("caro"); //char non displayable, et les autres?
-    // std::cout <<std::endl;
+    ScalarConverter::convert("");
+    std::cout <<std::endl;
+    ScalarConverter::convert("caro");
+    std::cout <<std::endl;
     return 0;
-}
+} */

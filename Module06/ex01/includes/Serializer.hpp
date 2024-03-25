@@ -5,11 +5,8 @@
 #include <cstdlib>
 #include <cctype>
 #include <cmath>
-#include <climits>
 #include <stdint.h> //for type uintptr_t
 
-/*CHECK: "Do not forget to turn in the files of your Data structure."
---> veut dire que je dois mettre la struct Data dans un autre fichier??*/
 struct Data
 {
 	int nb;

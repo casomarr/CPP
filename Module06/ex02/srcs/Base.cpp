@@ -8,7 +8,6 @@ Base *Base::generate(void)
 {
 	std::srand(std::time(0)); //use current time as seed for random generator : avoid having the same random number every time we run the program
 	int random_number = std::rand() % 3 + 1; //% max number and +1 to avoid starting at 0
-	std::cout <<"TEST : random number = " <<random_number <<std::endl;
 
 	switch (random_number)
 	{
@@ -21,7 +20,7 @@ Base *Base::generate(void)
 	}
 }
 
-/*Dynamic cast : used to vheck if an object 
+/*Dynamic cast : used to check if an object 
 being casted is actually of the target type and
 returns a nullptr/NULL if the cast is not valid:
 dynamic_cast<new_type*>(expression)*/
@@ -39,8 +38,27 @@ void Base::identify(Base* p)
 
 void Base::identify(Base& p)
 {
-	//HERE
-	(void)p;
-	//j'ai pas compris ce qu'il faut faire ("Using a pointer
-	//inside this function is forbidden.")
+	try
+	{
+		A& a = dynamic_cast< A& >(p);
+		std::cout <<"The object is of type A" <<std::endl;
+		(void)a;
+	}
+	catch(const std::exception& e) {}
+
+	try
+	{
+		B& b = dynamic_cast< B& >(p);
+		std::cout <<"The object is of type B" <<std::endl;
+		(void)b;
+	}
+	catch(const std::exception& e) {}
+
+	try
+	{
+		C& c = dynamic_cast< C& >(p);
+		std::cout <<"The object is of type C" <<std::endl;
+		(void)c;
+	}
+	catch(const std::exception& e) {}
 }

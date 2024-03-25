@@ -19,72 +19,76 @@ ScalarConverter &ScalarConverter::operator=(ScalarConverter const &rhs)
 	return *this;
 }
 
+static bool is_number(std::string const &literal)
+{
+	unsigned long i = 0; //unsigned long instead of int because .length() returns an unisnged long so cannot be compared to an int
+	while(literal[i])
+	{
+		if (std::isdigit(literal[i]) == 0 && literal[i] != '-' && literal[i] != '+' && literal[i] != '.') //if not a digit
+		{
+			if (i == (literal.length() - 1) && literal[i] == 'f')
+				return true;
+			return false;
+		}
+		i++;
+	}
+	return true;
+}
+
 /* static_cast<new_type>(expression) */
 void ScalarConverter::convert(std::string const &literal)
 {
 	//protections
+	if (literal[0] == '\0')
+	{
+		std::cout <<"invalid input : empty string" <<std::endl;
+		return ;
+	}
 	int i = 0;
+	int nb_of_letters = 0;
 	while (literal[i] != '\0')
 	{
-		if (std::isalnum(literal[i]) == 0) //if not all chars or digits
+		if (std::isalnum(literal[i]) == 0 && literal[i] != '-' && literal[i] != '+' && literal[i] != '.') //if not all chars or digits
 		{
-			std::cout <<"Invalid input" <<std::endl;
+			std::cout <<"Invalid input : " <<literal <<". Only characters and numbers accepted" <<std::endl;
+			return ;
+		}
+		if (std::isalpha(literal[i]) != 0)
+			nb_of_letters++;
+		if (nb_of_letters > 1 && literal != "nan" && literal != "inf")
+		{
+			std::cout <<"invalid input : " <<literal <<". Only literals accepted (no multiple letters)" <<std::endl;
 			return ;
 		}
 		i++;
 	}
 
-	if (literal.length() == 0) //"" --> seulement \0 qui n'est pas compté
+	if (std::isnan(std::atof(literal.c_str())) != 0) //nan
 	{
-		std::cout <<literal <<" to char: " <<std::endl;
-		//verifier pour les trois en dessous : peut etre ne rien afficher plutôt que 0?
-		std::cout <<literal <<" to int: 0" <<std::endl;
-		std::cout <<literal <<" to float: 0.0f" <<std::endl;
-		std::cout <<literal <<" to double: 0.0" <<std::endl;
+		std::cout <<literal <<" to char: impossible" <<std::endl;
+		std::cout <<literal <<" to int: impossible" <<std::endl;
+		std::cout <<literal <<" to float: nanf" <<std::endl;
+		std::cout <<literal <<" to double: nan" <<std::endl;
 	}
-	else if (literal.length() == 1) //.length() does not count \0
+	else if (std::isinf(std::atof(literal.c_str())) != 0) //inf
 	{
-		if (std::isdigit(literal[0]) != 0) //if is a digit
-		{
-			std::cout <<literal <<" to char: Non displayable" <<std::endl;
-			std::cout <<literal <<" to int: " <<literal[0] <<std::endl;
-			std::cout <<literal <<" to float: " <<literal[0] <<".0f" <<std::endl;
-			std::cout <<literal <<" to double: " <<literal[0] <<".0" <<std::endl;
-		}
-		else
-		{
-			std::cout <<literal <<" to char: " <<static_cast<char>(literal[0]) <<std::endl;
-			std::cout <<literal <<" to int: " <<static_cast<int>(literal[0]) <<std::endl;
-			std::cout <<literal <<" to float: " <<static_cast<float>(literal[0]) <<".0f" <<std::endl; //cast to int would be the same here
-			std::cout <<literal <<" to double: " <<static_cast<double>(literal[0]) <<".0" <<std::endl; //cast to int would be the same here
-		}
+		std::cout <<literal <<" to char: impossible" <<std::endl;
+		std::cout <<literal <<" to int: infinite number" <<std::endl;
+		std::cout <<literal <<" to float: infinite number" <<std::endl;
+		std::cout <<literal <<" to double: infinite number" <<std::endl;
 	}
-	else
+	else if (is_number(literal) == true) //if is a digit
 	{
-		if (std::isnan(std::atof(literal.c_str())) != 0)
-		{
-			// std::cout <<"NAN" <<std::endl;
-			std::cout <<literal <<" to char: impossible" <<std::endl;
-			std::cout <<literal <<" to int: impossible" <<std::endl;
-			std::cout <<literal <<" to float: nanf" <<std::endl;
-			std::cout <<literal <<" to double: nan" <<std::endl;
-		}
-		else if (std::isinf(std::atof(literal.c_str())) != 0)
-		{
-			// std::cout <<"INF" <<std::endl;
-			std::cout <<literal <<" to char: impossible" <<std::endl;
-			std::cout <<literal <<" to int: infinite number" <<std::endl;
-			std::cout <<literal <<" to float: infinite number" <<std::endl;
-			std::cout <<literal <<" to double: infinite number" <<std::endl;
-		}
-		else
-		{
-			// std::cout <<"DIGIT" <<std::endl;
-			std::cout <<literal <<" to char: Non displayable" <<std::endl;
-			std::cout <<literal <<" to int: " <<std::atoi(literal.c_str()) <<std::endl;
-			std::cout <<literal <<" to float: " <<std::atof(literal.c_str()) <<".0f" <<std::endl;
-			std::cout <<literal <<" to double: " <<std::atof(literal.c_str()) <<".0" <<std::endl;
-		}
+		std::cout <<literal <<" to char: Non displayable" <<std::endl;
+		std::cout <<literal <<" to int: " <<std::atoi(literal.c_str()) <<std::endl;
+		std::cout <<literal <<" to float: " <<std::atof(literal.c_str()) <<".0f" <<std::endl;
+		std::cout <<literal <<" to double: " <<std::atof(literal.c_str()) <<".0" <<std::endl;
 	}
-
+	else //not a digit
+	{
+		std::cout <<literal <<" to char: " <<static_cast<char>(literal[0]) <<std::endl;
+		std::cout <<literal <<" to int: " <<static_cast<int>(literal[0]) <<std::endl;
+		std::cout <<literal <<" to float: " <<static_cast<float>(literal[0]) <<".0f" <<std::endl;
+		std::cout <<literal <<" to double: " <<static_cast<double>(literal[0]) <<".0" <<std::endl;
+	}
 }
