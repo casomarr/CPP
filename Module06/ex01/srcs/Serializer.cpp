@@ -20,7 +20,7 @@ Serializer::~Serializer()
 }
 
 /*Reinterpret cast is used to convert a pointer or object to 
-another typically used for casting between unrelated types:
+another, typically used for casting between unrelated types:
 reinterpret_cast<new_type>(expression)*/
 uintptr_t Serializer::serialize(Data* ptr)
 {
