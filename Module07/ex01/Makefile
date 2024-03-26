@@ -6,7 +6,7 @@
 #    By: octonaute <octonaute@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/13 17:13:39 by casomarr          #+#    #+#              #
-#    Updated: 2024/03/26 17:19:44 by octonaute        ###   ########.fr        #
+#    Updated: 2024/03/26 17:25:36 by octonaute        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@
 #                                  CONFIGURATION                               #
 # **************************************************************************** #
 
-NAME = whatever
+NAME = iter
 
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
@@ -28,7 +28,7 @@ RM = rm -f
 # **************************************************************************** #
 
 ### INCLUDES
-HEADERS = whatever.hpp \
+HEADERS = iter.hpp \
 
 ### SOURCES
 SRCS = main.cpp \
