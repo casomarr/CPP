@@ -44,7 +44,7 @@ void Base::identify(Base& p)
 		std::cout <<"The object is of type A" <<std::endl;
 		(void)a;
 	}
-	catch(const std::exception& e) {}
+	catch(const std::exception& e) {} //On peut preciser quelles exceptions on veut catch (ex: std::badcast). std::exception = toutes les exceptions.
 
 	try
 	{
