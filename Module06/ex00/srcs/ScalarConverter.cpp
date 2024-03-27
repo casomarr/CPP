@@ -28,7 +28,7 @@ static bool is_number(std::string const &literal)
 	{
 		if (std::isdigit(literal[i]) == 0 && literal[i] != '-' && literal[i] != '+' && literal[i] != '.') //if not a digit
 		{
-			if (i == (literal.length() - 1) && literal[i] == 'f')
+			if (i == (literal.length() - 1) && i != 0 && literal[i] == 'f')
 				return true;
 			return false;
 		}
