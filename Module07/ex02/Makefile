@@ -6,7 +6,7 @@
 #    By: casomarr <casomarr@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/13 17:13:39 by casomarr          #+#    #+#              #
-#    Updated: 2024/03/27 18:26:46 by casomarr         ###   ########.fr        #
+#    Updated: 2024/03/28 17:59:45 by casomarr         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ NAME = array
 
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
-CFLAGS+= -g3
+# CFLAGS+= -g3
 
 RM = rm -f
 

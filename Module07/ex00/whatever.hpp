@@ -16,11 +16,15 @@ void	swap(T &x, T &y) //& car on va les modifier sans les return
 template <typename T>
 T	min(T const &x, T const &y)
 {
-	return (x < y ? x : y); //CHECK norme
+	if (x == y)
+		return (y);
+	return (x < y ? x : y);
 }
 
 template <typename T>
 T	max(T const &x, T const &y)
 {
-	return (x > y ? x : y); //CHECK norme
+	if (x == y)
+		return (y);
+	return (x > y ? x : y);
 }

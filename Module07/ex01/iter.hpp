@@ -20,6 +20,4 @@ void	iter(T *array, size_t length, void (*func)(T const *element))
 	std::cout <<std::endl;
 }
 
-//video specialization https://elearning.intra.42.fr/notions/piscine-c-d07-templates/subnotions/piscine-c-d07-templates-specialization/videos/cpp_bootcamp_-_d07_-_03_specialization
-//min 12:20
 //STL library : librairie de templates et conteneurs

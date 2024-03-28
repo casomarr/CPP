@@ -50,7 +50,6 @@ class Array
 		};
 		unsigned int size() const
 		{
-			//IMPORTANT return sizeof(_array)/sizeof(_array[0]); //sizeof() instead of size() because it's an array
 			return _size;
 		};
 		T &operator[](size_t index) //operator [] pour les objets de type T

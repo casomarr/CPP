@@ -102,23 +102,21 @@ int main()
 		std::cerr <<e.what() <<std::endl;
 	}
 
-	try
-	{
-		std::cout <<std::endl;
-		std::cout <<"ARRAY INITIALIZED BY DEFAULT" <<std::endl <<std::endl;
-		//Creates an array of n elements initialized by default.
-		int * a = new int();
-		std::cout <<"A : " <<*a <<std::endl;
-		delete a;
-		std::cout <<std::endl;
-	}
-	catch(const std::exception& e)
-	{
-		std::cerr <<e.what() <<std::endl;
-	}
+	// try
+	// {
+	// 	int * a = new int();
+	// 	std::cout <<"A : " <<*a <<std::endl;
+	// 	delete a;
+	// 	std::cout <<std::endl;
+	// }
+	// catch(const std::exception& e)
+	// {
+	// 	std::cerr <<e.what() <<std::endl;
+	// }
 
 	try
 	{
+		std::cout <<std::endl;
 		//Creates an empty array.
 		std::cout <<"EMPTY ARRAY" <<std::endl <<std::endl;
 		Array<int> array;
