@@ -12,7 +12,11 @@ class Array
 		T *_array;
 		unsigned int _size;
 	public:
-		Array() {};
+		Array() 
+		{
+			_size = 0;
+			_array = new T[0];
+		};
 		~Array()
 		{
 			delete[] _array; //IMPORTANT delete[] for arrays (int *array = new int[]), delete for single objects (int *unit = new int)

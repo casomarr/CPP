@@ -56,7 +56,8 @@ int main()
 {
 	try
 	{
-	//CHECK CLASS WITH INT AND CHAR
+	//CLASS WITH INT AND CHAR
+		std::cout <<"CLASS WITH INT AND CHAR" <<std::endl <<std::endl;
 		Array<int> array(4);
 		for (unsigned int i = 0; i < array.size(); i++)
 			array[i] = i;
@@ -73,50 +74,65 @@ int main()
 			std::cout <<"strArray[" <<i <<"] : " <<strArray[i] <<std::endl;
 		std::cout <<std::endl;
 
-	//CHECK OPERATOR = DEEP COPY
+	//OPERATOR = DEEP COPY
+		std::cout <<"OPERATOR = DEEP COPY : " <<std::endl <<std::endl;
 		Array<int> array1 = array;
+		array[0] = 42;
 		std::cout <<"Array1 size = " <<array1.size() <<std::endl;
 		for (unsigned int i = 0; i < array1.size(); i++)
 			std::cout <<"array1[" <<i <<"] : " <<array1[i] <<std::endl;
 		std::cout <<std::endl;
 
-	//CHECK CONSTRUCTOR DEEP COPY
+	//COPY CONSTRUCTOR DEEP COPY
+		std::cout <<"COPY CONSTRUCTOR DEEP COPY" <<std::endl <<std::endl;
 		Array<int> array2(array1);
+		array1[0] = 42;
 		std::cout <<"Array2 size = " <<array2.size() <<std::endl;
 		for (unsigned int i = 0; i < array2.size(); i++)
 			std::cout <<"array2[" <<i <<"] : " <<array2[i] <<std::endl;
 		std::cout <<std::endl;
 	
-	//CHECK INDEX OUT OF RANGE
+	//INDEX OUT OF RANGE
+		std::cout <<"INDEX OUT OF RANGE" <<std::endl <<std::endl;
 		array2[7] = 4;
-	}
-	catch(const std::exception& e) {}
-
-	try
-	{
-		//Creates an array of n elements initialized by default.
-		int * a = new int();
-		std::cout <<"TEST : " <<a <<std::endl;
+		std::cout <<std::endl;
 	}
 	catch(const std::exception& e)
 	{
-		std::cerr << e.what() << '\n';
+		std::cerr <<e.what() <<std::endl;
+	}
+
+	try
+	{
+		std::cout <<std::endl;
+		std::cout <<"ARRAY INITIALIZED BY DEFAULT" <<std::endl <<std::endl;
+		//Creates an array of n elements initialized by default.
+		int * a = new int();
+		std::cout <<"A : " <<*a <<std::endl;
+		delete a;
+		std::cout <<std::endl;
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr <<e.what() <<std::endl;
 	}
 
 	try
 	{
 		//Creates an empty array.
+		std::cout <<"EMPTY ARRAY" <<std::endl <<std::endl;
 		Array<int> array;
+		std::cout <<"Array size = " <<array.size() <<std::endl;
+		//the following line will not be printed since size = 0
 		for (unsigned int i = 0; i < array.size(); i++)
 			std::cout <<"array[" <<i <<"] : " <<array[i] <<std::endl;
+		//if we force it it will print out of range
+		std::cout <<"array[0] : " <<array[0] <<std::endl;
 	}
 	catch(const std::exception& e)
 	{
-		std::cerr << e.what() << '\n';
+		std::cerr <<e.what() <<std::endl;
 	}
 	
-	
-	
-
 	return 0;
 }
