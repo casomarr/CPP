@@ -6,7 +6,9 @@ Span::Span()
 
 Span::Span(unsigned int n) : _max_nb(n)
 {
-	//(void)n; //FIX : if I initialize it here it puts n zeros in my vector so push_back adds numbers after the zeros.
+	/*if I initialize it here such as :
+	_list = std::vector<int>(n);
+	it puts n zeros in my vector so push_back adds numbers after the zeros.*/
 	_list = std::vector<int>(0);
 }
 
@@ -18,7 +20,7 @@ Span::Span(Span const &other)
 Span &Span::operator=(Span const &other)
 {
 	_list = other._list;
-	//_max_nb = _max_nb;
+	_max_nb = other._max_nb;
 	return *this;
 }
 
@@ -28,8 +30,6 @@ Span::~Span()
 
 void Span::addNumber(int nb)
 {
-	//std::cout <<"list size = " <<_list.size() <<std::endl; //TEST
-
 	if (_list.size() >= _max_nb)
 		throw std::runtime_error("Too many elements in list");
 	else
@@ -38,17 +38,6 @@ void Span::addNumber(int nb)
 
 unsigned int Span::shortestSpan()
 {
-	
-	//TEST --------------------------
-/*	std::vector<int>::iterator test = _list.begin();
-	while(test != _list.end())
-	{
-		std::cout <<*test <<", ";
-		test++;
-	}
-	std::cout <<std::endl <<std::endl;*/
-	//------------------------
-
 	if (_list.size() < 2)
 		throw std::runtime_error("Too few numbers in list to calculate span");
 	
@@ -60,7 +49,6 @@ unsigned int Span::shortestSpan()
 	{
 		next = it + 1;
 		current_span = *next - *it;
-		//std::cout <<"current_span = " <<current_span <<std::endl; //TEST
 		if (current_span < 0)
 			current_span *= -1;
 		if (current_span < span)
@@ -81,17 +69,6 @@ unsigned int Span::longestSpan()
 	//min and max_element functions return an iterator!! not an int
 	std::vector<int>::iterator min = std::min_element(_list.begin(), _list.end());
 	std::vector<int>::iterator max = std::max_element(_list.begin(), _list.end());
-
-	//TEST --------------------------
-/*	std::vector<int>::iterator test = _list.begin();
-	while(test != _list.end())
-	{
-		std::cout <<*test <<", ";
-		test++;
-	}
-	std::cout <<"min = " <<*min <<std::endl;
-	std::cout <<"max = " <<*max <<std::endl;*/
-	//------------------------
 
 	return (*max - *min); //"*" because it's what the iterator is pointing to
 }
