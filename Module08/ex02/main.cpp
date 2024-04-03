@@ -4,7 +4,7 @@ int main()
 {
 	try
 	{
-		std::cout <<"Subject main" <<std::endl;
+		std::cout <<"Main in the subject" <<std::endl;
 
 		MutantStack<int> mstack;
 		mstack.push(5);
@@ -15,7 +15,6 @@ int main()
 		mstack.push(3);
 		mstack.push(5);
 		mstack.push(737);
-		//[...]
 		mstack.push(0);
 		MutantStack<int>::iterator it = mstack.begin();
 		MutantStack<int>::iterator ite = mstack.end();
@@ -36,7 +35,7 @@ int main()
 	
 	try
 	{
-		std::cout <<std::endl <<"Test with std::list instead of MutantStack" <<std::endl;
+		std::cout <<std::endl <<"Test with std::list instead of MutantStack : gives the same results" <<std::endl;
 
 		std::list<int> mstack;
 		mstack.push_back(5);
@@ -47,7 +46,6 @@ int main()
 		mstack.push_back(3);
 		mstack.push_back(5);
 		mstack.push_back(737);
-		//[...]
 		mstack.push_back(0);
 		std::list<int>::iterator it = mstack.begin();
 		std::list<int>::iterator ite = mstack.end();
@@ -58,7 +56,6 @@ int main()
 		std::cout << *it << std::endl;
 		++it;
 		}
-		//std::stack<int> s(mstack);
 	}
 	catch(const std::exception& e)
 	{
@@ -67,10 +64,3 @@ int main()
 
 	return 0;
 }
-
-/*
-Si vous l’exécutez une première fois avec votre MutantStack, puis une seconde fois en
-remplaçant la MutantStack, par exemple par std::list, les deux résultats devront Ÿtre
-identiques. Bien sûr, lorsque vous testez cet exemple avec un autre container, modiez le
-code avec les fonctions membres correspondantes (push() peut devenir push_back()).
-*/

@@ -36,6 +36,25 @@ void Span::addNumber(int nb)
 		_list.push_back(nb);
 }
 
+void Span::addNumber(int start, int end, unsigned int length) 
+{
+	std::vector<int> nb_list;
+	unsigned int i = 0;
+
+	srand(static_cast<unsigned int>(std::time(0)));
+
+	while(i < length) 
+	{
+		if (_list.size() >= _max_nb)
+			throw std::runtime_error("Too many elements in list");
+		else
+		{
+			_list.push_back(rand() % (end - start + 1) + start);
+		}
+		i++;
+	}
+}
+
 unsigned int Span::shortestSpan()
 {
 	if (_list.size() < 2)

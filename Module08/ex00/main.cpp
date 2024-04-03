@@ -1,9 +1,4 @@
-//lire Consignes générales du sujet (changent pour CPP8 et 9)
-//video intra: https://elearning.intra.42.fr/notions/piscine-c-d08-stl/subnotions/piscine-c-d08-stl-stl/videos/stl-1e60e486-1b8b-4f10-89bd-b2b3871bd3e9
-
-//include <algorithm> --> le but est d utiliser des containers de la STL
-
-#include "easyfind.hpp"
+#include "includes/easyfind.hpp"
 
 int main()
 {
@@ -17,12 +12,7 @@ int main()
 	try
 	{
 		std::vector<int>::iterator it = easyfind(vec, nb);
-		std::vector<int>::iterator compare = std::find(vec.begin(), vec.end(), 2);
-
-		//CHECK : ne devraient pas tous avoir la même adresse?
 		std::cout <<"First occurence of " <<nb <<" in vector is " <<&it <<std::endl;
-		std::cout <<"&vec[1] = " <<&vec[1] <<std::endl;
-		std::cout <<"std::find(vec.begining(), vec.end(), 2) = " <<&compare <<std::endl <<std::endl;
 	}
 	catch(const std::exception& e)
 	{
@@ -41,18 +31,11 @@ int main()
 
 	try
 	{
-		std::vector<int>::iterator vec_it = easyfind(vec, nb); //need this line to print with std::cout <<&it ("invalid operands to binary expression" error)
-		std::vector<int>::iterator compare = std::find(vec.begin(), vec.end(), 2);
-
-		//CHECK : ne devraient pas tous avoir la même adresse?
 		std::cout <<"Test with container of type vector" <<std::endl;
-		std::cout <<"First occurence of " <<nb <<" in vector is " <<&vec_it <<std::endl;
-		std::cout <<"&vec[1] = " <<&vec[1] <<std::endl;
-		std::cout <<"std::find(vec.begining(), vec.end(), 2) = " <<&compare <<std::endl <<std::endl;
+		std::cout <<"First occurence of " <<nb <<" in vector is " <<*easyfind(vec, nb) <<std::endl;
 
-		std::list<int>::iterator lst_it = easyfind(lst, nb);
 		std::cout <<"Test with container of type list" <<std::endl;
-		std::cout <<"First occurence of " <<nb <<" in list is " <<&lst_it <<std::endl <<std::endl;
+		std::cout <<"First occurence of " <<nb <<" in list is " <<*easyfind(lst, nb) <<std::endl <<std::endl;
 	}
 	catch(const std::exception& e)
 	{
@@ -63,12 +46,7 @@ int main()
 	try
 	{
 		std::vector<int>::iterator it = easyfind(vec, nb);
-		std::vector<int>::iterator compare = std::find(vec.begin(), vec.end(), 2);
-
-		//CHECK : ne devraient pas tous avoir la même adresse?
-		std::cout <<"First occurence of " <<nb <<" in vector is " <<&it <<std::endl;
-		std::cout <<"&vec[1] = " <<&vec[1] <<std::endl;
-		std::cout <<"std::find(vec.begining(), vec.end(), 2) = " <<&compare <<std::endl <<std::endl;
+		std::cout <<"First occurence of " <<nb <<" in vector is " <<*it <<std::endl;
 	}
 	catch(const std::exception& e)
 	{
@@ -77,5 +55,3 @@ int main()
 
 	return 0;
 }
-
-//IMPORTANT : soit j'ai mal comrpis l'exo et je dois mettre std::vector<T> dans le .hpp
