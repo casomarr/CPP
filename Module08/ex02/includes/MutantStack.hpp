@@ -5,27 +5,24 @@
 #include <list>
 
 /*
-In the C++ Standard Library, some container types are actually not containers themselves, 
-but are adaptations of other containers. These are known as container adaptors. 
-The three container adaptors provided by the library are std::stack, std::queue, and std::priority_queue.
+Some container types are actually adaptations of other containers. 
+These are known as container adaptors. The three container adaptors 
+provided by the STL library are std::stack, std::queue, and std::priority_queue.
 
-When we say that one container is used as the "underlying container" for a container adaptor, 
-we mean that the adaptor uses an instance of that container to store its elements and implements its 
-own interface by calling methods on that container.
+When we say that one container is used as the "underlying container" for 
+a container adaptor, we mean that the adaptor uses an instance of that 
+container to store its elements and calls methods of that container.
 
-For example, std::stack is a container adaptor that provides a restricted interface to its underlying container. 
-By default, std::stack uses std::deque as its underlying container, but you can specify a different container 
-type when you declare a std::stack.
+std::vector<int> is the underlying container for std::stack. 
+That means that a variable of type stack uses an std::vector<int> to 
+store its elements and all its operations (push, pop, top, etc.) are 
+implemented as stipulated in the container std::vector<int>.
 
-Here's an example:
-
-In this case, std::vector<int> is the underlying container for std::stack. 
-The stack s will use a std::vector<int> to store its elements. All stack operations (push, pop, top, etc.) 
-will be implemented in terms of corresponding operations on the std::vector<int>.
-
-In your MutantStack class, you're inheriting from std::stack<T>, so std::stack<T> is using std::deque<T> as 
-its underlying container by default. You're then providing additional functionality (like iterators) that 
-aren't available in std::stack but are available in std::deque.
+Since our MutantStack class inherits from std::stack<T>, it uses 
+std::deque<T> as its underlying container by default. To provide iterators, 
+that happen to be available in std::deque but not in std::stack, we need to 
+write the begin() and end() functions in our MutantStack class to be able to 
+use the iterators in std::deque.
 */
 
 template <typename T>
@@ -57,10 +54,9 @@ std::stack. Elle offrira toutes ses fonctions membres avec en plus des itérateu
 		iterator begin()
 		{
 			return this->c.begin();
-			/*this->c refers to the member c of the current object. 
-			c is a member of std::stack and other STL containers that 
-			represents the underlying container. In the case of std::stack, 
-			c is by default of type std::deque<T>*/
+			/*c is a member of std::stack (also present in other 
+			STL containers) that represents the underlying container. 
+			So for std::stack, c is by default of type std::deque<T>*/
 		}
 		iterator end()
 		{

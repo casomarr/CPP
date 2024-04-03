@@ -2,9 +2,6 @@
 
 int main()
 {
-	/*IMPORTANT : on ne peut pas instancier un containeur comme ça : std::vector<int> vec = {1, 2, 3, 4}.
-	Il faut utiliser std::push_back().*/
-
 	std::vector<int> vec;
 	std::list<int> lst;
 	int nb = 2;
@@ -12,7 +9,7 @@ int main()
 	try
 	{
 		std::vector<int>::iterator it = easyfind(vec, nb);
-		std::cout <<"First occurence of " <<nb <<" in vector is " <<&it <<std::endl;
+		std::cout <<"Value being searched : " <<nb <<". Value found in vector : " <<&it <<std::endl;
 	}
 	catch(const std::exception& e)
 	{
@@ -32,10 +29,10 @@ int main()
 	try
 	{
 		std::cout <<"Test with container of type vector" <<std::endl;
-		std::cout <<"First occurence of " <<nb <<" in vector is " <<*easyfind(vec, nb) <<std::endl;
+		std::cout <<"Value being searched : " <<nb <<". Value found in vector : " <<*easyfind(vec, nb) <<std::endl;
 
 		std::cout <<"Test with container of type list" <<std::endl;
-		std::cout <<"First occurence of " <<nb <<" in list is " <<*easyfind(lst, nb) <<std::endl <<std::endl;
+		std::cout <<"Value being searched : " <<nb <<". Value found in list : " <<*easyfind(lst, nb) <<std::endl <<std::endl;
 	}
 	catch(const std::exception& e)
 	{
@@ -46,7 +43,7 @@ int main()
 	try
 	{
 		std::vector<int>::iterator it = easyfind(vec, nb);
-		std::cout <<"First occurence of " <<nb <<" in vector is " <<*it <<std::endl;
+		std::cout <<"Value being searched : " <<nb <<". Value found in vector is " <<*it <<std::endl;
 	}
 	catch(const std::exception& e)
 	{
@@ -55,3 +52,4 @@ int main()
 
 	return 0;
 }
+
