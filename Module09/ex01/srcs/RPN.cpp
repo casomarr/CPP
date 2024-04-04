@@ -65,24 +65,24 @@ void RPN::reverse_polish_notation()
 			if (sign == '+')
 			{
 				result = first + second;
-				std::cout <<first <<" + " <<second <<" = " <<result <<std::endl; //TEST
+				std::cout <<first <<" + " <<second <<" = " <<result <<std::endl;
 			}
 			else if (sign == '-')
 			{
 				result = first - second;
-				std::cout <<first <<" - " <<second <<" = " <<result <<std::endl; //TEST
+				std::cout <<first <<" - " <<second <<" = " <<result <<std::endl;
 			}
 			else if (sign == '*')
 			{
 				result = first * second;
-				std::cout <<first <<" * " <<second <<" = " <<result <<std::endl; //TEST
+				std::cout <<first <<" * " <<second <<" = " <<result <<std::endl;
 			}
 			else if (sign == '/')
 			{
 				if (second == 0)
 					throw std::runtime_error("Unvalid operation : division by 0");
 				result = first / second;
-				std::cout <<first <<" / " <<second <<" = " <<result <<std::endl; //TEST
+				std::cout <<first <<" / " <<second <<" = " <<result <<std::endl;
 			}
 			else //SHOULD NEVER ARRIVE HERE
 				throw std::runtime_error("Unvalid operation : wrong sign");
@@ -103,13 +103,11 @@ RPN::RPN(std::string operation)
 		if (std::isdigit(operation[i]) != 0) //if is a number
 			_numbers.push(operation[i] - '0'); //to convert char to int
 		else if (operation[i] == '+' || operation[i] == '-' || \
-			operation[i] == '*' || operation[i] == '/')
+		operation[i] == '*' || operation[i] == '/')
 		{
 			signs = "";
-			while(signs.size() != _numbers.size() - 1)
+			while(signs.size() != _numbers.size() - 1 && operation[i] != '\0')
 			{
-				std::cout <<"operation[i] : " <<operation[i] <<std::endl;
-				std::cout <<"signs.size() : " <<signs.size() <<std::endl;
 				if (operation[i] == '+' || operation[i] == '-' || \
 				operation[i] == '*' || operation[i] == '/')
 					signs = signs + operation[i];
@@ -117,19 +115,13 @@ RPN::RPN(std::string operation)
 					throw std::runtime_error("Unvalid operation");
 				i++;
 			}
-			//std::cout <<"Signs = " <<signs <<std::endl; //TEST
-			//std::cout <<"_signs = "; //TEST
 			int i = signs.size();
 			while(i >= 0)
 			{
 				_signs.push(signs[i]);
-				//std::cout <<signs[i]; //TEST
 				i--;
 			}
-			//std::cout <<std::endl; //TEST
 			reverse_polish_notation();
-			while(_numbers.size() > 0)
-				_numbers.pop();
 			while(_signs.size() > 0)
 				_signs.pop();
 		}
