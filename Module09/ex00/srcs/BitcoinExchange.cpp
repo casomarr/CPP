@@ -208,16 +208,20 @@ void BitcoinExchange::exchangeRate(std::string date, int nb)
 		return ;
 	}
 	
-	std::map<std::string, int>::iterator it;
+	std::map<std::string, int>::iterator it; //IMPORTANT: it->first (key) / it->second (value)
 	it = _info.find(date);
 	if (it == _info.end())
 	{
-		//TODO
-		//chercher dans _info en key la date PRECEDENTE la plus proche
-		std::cout <<"TODO : DATE INTROUVABLE" <<std::endl;
-		return ; //TEST (temporaire pour pas crash)
+		it = _info.lower_bound(date);
+
+		if (it == _info.begin() && it->first != date) 
+		{
+			std::cout << "No preceding date found" << std::endl;
+			return;
+		}
+		--it; // Move to the closest preceding date
 	}
 	std::cout <<"Date = " <<it->first <<" | Exchange Rate = " <<it->second <<std::endl;
 	std::cout <<"Result = " <<it->second <<" * " <<nb <<" = ";
-	std::cout <<(it->second * nb) <<std::endl <<std::endl; //vérifier que *it c'est bien la value de la key sur laquelle pointe l'itérateur
+	std::cout <<(it->second * nb) <<std::endl <<std::endl;
 }
