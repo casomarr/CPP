@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: casomarr <casomarr@student.42.fr>          +#+  +:+       +#+         #
+#    By: octonaute <octonaute@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/13 17:13:39 by casomarr          #+#    #+#              #
-#    Updated: 2024/04/04 18:13:51 by casomarr         ###   ########.fr        #
+#    Updated: 2024/04/05 12:47:54 by octonaute        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ NAME = RPN
 
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
-CFLAGS+= -g3
+#CFLAGS+= -g3
 
 RM = rm -f
 

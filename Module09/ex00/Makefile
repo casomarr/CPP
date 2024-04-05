@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: casomarr <casomarr@student.42.fr>          +#+  +:+       +#+         #
+#    By: octonaute <octonaute@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/13 17:13:39 by casomarr          #+#    #+#              #
-#    Updated: 2024/04/04 17:24:31 by casomarr         ###   ########.fr        #
+#    Updated: 2024/04/05 13:03:47 by octonaute        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@
 #                                  CONFIGURATION                               #
 # **************************************************************************** #
 
-NAME = bitcoin
+NAME = btc
 
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
@@ -34,11 +34,11 @@ INCLUDES_FOLDER = includes/
 SRCS_FOLDER = srcs/
 
 ### INCLUDES
-HEADERS = $(INCLUDES_FOLDER)/RPN.hpp \
+HEADERS = $(INCLUDES_FOLDER)/BitcoinExchange.hpp \
 
 ### SOURCES
 SRCS = main.cpp \
-	$(SRCS_FOLDER)/RPN.cpp \
+	$(SRCS_FOLDER)/BitcoinExchange.cpp \
 		
 ### OBJECTS
 OBJS = $(SRCS:.cpp=.o)
