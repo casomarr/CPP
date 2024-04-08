@@ -5,7 +5,7 @@
 #include <string>
 #include <map>
 #include <stdlib.h> //necessaire?
-#include <cstdlib> //necessaire?
+#include <cstdlib> //for atoi
 #include <sstream> //pour équivalent de itoa
 #include <istream> //necessaire?
 #include <fstream> //getline
