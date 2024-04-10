@@ -63,11 +63,21 @@ int main (int argc, char **argv)
 
 	std::cout <<"WRONG FILENAMES" <<std::endl;
 	//wrong file
+	try
 	{
 		BitcoinExchange bitcoin("UnexistantFile.csv");
 	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
+	try
 	{
 		BitcoinExchange bitcoin("WrongFileType.txt");
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
 	}
 	std::cout <<std::endl;
 
