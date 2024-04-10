@@ -35,9 +35,47 @@ std::string		BitcoinExchange::getValue(std::string line)
 	return str_value;
 }
 
+bool	BitcoinExchange::isValidDate(std::string date)
+{
+	int year = 0;
+	int month = 0;
+	int day = 0;
+
+	for (int i = 0; i < 4 ; i++)
+		year = year * 10 + (date[i] - '0');
+	for (int i = 5; i < 7 ; i++)
+		month = month * 10 + (date[i] - '0');
+	for (int i = 8; i < 10 ; i++)
+		day = day * 10 + (date[i] - '0');
+
+	// std::cout <<"Date = " <<date <<std::endl;
+	// std::cout <<"year = " <<year <<" | month = " <<month <<" | day = " <<day <<std::endl;
+
+	if (month < 1 || month > 12)
+		return false;
+
+	if (day < 1 || day > 31)
+		return false;
+
+	if ((month == 4 || month == 6 || month == 9 || month == 11) && day > 30)
+		return false;
+
+	if (month == 2) //leap year
+	{
+		if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) {
+		if (day > 29)
+			return false;
+		} else {
+		if (day > 28)
+			return false;
+		}
+	}
+
+	return true;
+};
+
 void	BitcoinExchange::checkDateFormat(std::string date)
 {
-	//IMPORTANT data.csv n'a pas le format du sujet : "date,value" et non "date | value"
 	for (int i = 0; i < 4; i++)
 		if (std::isdigit(static_cast<unsigned char>(date[i])) == 0) //not a nb
 			throw std::runtime_error("Wrong date Format. Expecting : YYYY-MM-DD");
@@ -53,11 +91,13 @@ void	BitcoinExchange::checkDateFormat(std::string date)
 			throw std::runtime_error("Wrong date Format. Expecting : YYYY-MM-DD");
 	if (date[10] != '\0')
 		throw std::runtime_error("Wrong date Format. Expecting : YYYY-MM-DD");
+	if (isValidDate(date) == false)
+		throw std::runtime_error("Unexisting date");
 }
 
 int	BitcoinExchange::checkValueFormat(std::string str_value)
 {
-	int value = -1;
+	long long int value = -1;
 
 	long unsigned int i = 0;
 	unsigned int pointCount = 0;
@@ -77,7 +117,7 @@ int	BitcoinExchange::checkValueFormat(std::string str_value)
 	}
 	
 	if (value == -1)
-		value = atoi(str_value.c_str());
+		value = atoll(str_value.c_str());
 
 	if (value < 0)
 		throw std::runtime_error("Error : negative number");
@@ -87,7 +127,7 @@ int	BitcoinExchange::checkValueFormat(std::string str_value)
 	return value;
 }
 
-int	BitcoinExchange::checkValueFormat(int value)
+int	BitcoinExchange::checkValueFormat(long long int value)
 {
 	// std::string str_value;
 
@@ -118,8 +158,8 @@ int	BitcoinExchange::checkValueFormat(int value)
 
 	if (value < 0)
 		throw std::runtime_error("Error : negative number");
-	if (value > INT_MAX)
-		throw std::runtime_error("Error : number > INT_MAX");
+	if (value > 1000)
+		throw std::runtime_error("Error : number > 1000");
 
 	return value;
 }
@@ -130,25 +170,43 @@ void	BitcoinExchange::fill_info(std::ifstream &file)
 	std::string date;
 	std::string str_value;
 	int value;
+	static int first_line = 0;
 
 	while (std::getline(file, line))
 	{
-		date = "";
-		str_value = "";
-		value = -1;
+		if (first_line == 0) //to skip title line
+			first_line++;
+		else
+		{
+			date = "";
+			str_value = "";
+			value = -1;
 
-		date = getDate(line);
-		// std::cout << "date = " << date << std::endl; //TEST
-		checkDateFormat(date);
-		// std::cout <<"checkDateFormat OK" <<std::endl; //TEST
+			try //FIX ce try and catch ne change rien du coup 1000 + 1 dans fichier n'est pas catch
+			{
+				date = getDate(line);
+				checkDateFormat(date);
 
-		str_value = getValue(line);
-		// std::cout << "str_value = " << str_value << std::endl; //TEST
-		value = checkValueFormat(str_value);
-		// std::cout <<"checkValueFormat OK" <<std::endl; //TEST
-		
-		_info[date] = value;
+				str_value = getValue(line);
+				value = checkValueFormat(str_value);
+			}
+			catch(const std::exception& e)
+			{
+				//std::cerr << e.what() << '\n'; //sinon avec throw en bas ca ecrirait deux fois l exception
+				//std::cout <<"EXCEPTION CAUGHT HERE" <<std::endl; //TEST
+				throw; //re-throw exception
+				//return ;
+			}
+			
+			_info[date] = value;
+		}
 	}
+	if (_info.empty() == true)
+	{
+		std::cout <<"Error: file is empty" <<std::endl;
+		_file_data_ok = false;
+	}
+
 }
 
 bool	BitcoinExchange::wrong_type(std::string const &filename)
@@ -162,6 +220,7 @@ bool	BitcoinExchange::wrong_type(std::string const &filename)
 
 BitcoinExchange::BitcoinExchange(std::string const &filename)
 {
+	_file_data_ok = true;
 	try
 	{
 		if (wrong_type(filename) == true)
@@ -177,11 +236,16 @@ BitcoinExchange::BitcoinExchange(std::string const &filename)
 	catch(const std::exception& e)
 	{
 		std::cerr << e.what() << '\n';
+		_file_data_ok = false;
+		return ;
+		//throw; //re-throw exception
 	}
 }
 
 BitcoinExchange::~BitcoinExchange()
 {
+	_file_data_ok = true;
+	//IMPORTANT: _file_data_ok = true; et _info les mettre dans constructeur par default, de copy et = !!!
 }
 
 BitcoinExchange::BitcoinExchange(BitcoinExchange const &other)
@@ -195,8 +259,13 @@ BitcoinExchange &BitcoinExchange::operator=(BitcoinExchange const &rhs)
 	return *this;
 }
 
-void BitcoinExchange::exchangeRate(std::string date, int nb)
+void BitcoinExchange::exchangeRate(std::string date, long long int nb)
 {
+	if (_file_data_ok == false)
+	{
+		std::cout <<"Error in file : can't run exchangeRate" <<std::endl;
+		return;
+	}
 	try
 	{
 		checkDateFormat(date);

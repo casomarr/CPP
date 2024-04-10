@@ -14,18 +14,24 @@ class BitcoinExchange
 {
 	private:
 		std::map <std::string, int> _info;
+		bool _file_data_ok;
+
+		BitcoinExchange();
+		BitcoinExchange(BitcoinExchange const &other);
+		BitcoinExchange &operator=(BitcoinExchange const &rhs);
+		
 	public:
 		BitcoinExchange(std::string const &filename);
 		~BitcoinExchange();
-		BitcoinExchange(BitcoinExchange const &other);
-		BitcoinExchange &operator=(BitcoinExchange const &rhs);
 
-		void			exchangeRate(std::string date, int nb);
+		void			exchangeRate(std::string date, long long int nb);
 		bool			wrong_type(std::string const &filename);
 		void			fill_info(std::ifstream &file);
 		std::string		getDate(std::string line);
 		std::string		getValue(std::string line);
 		void			checkDateFormat(std::string date);
 		int				checkValueFormat(std::string str_value);
-		int				checkValueFormat(int value);
+		int				checkValueFormat(long long int value);
+		bool			isValidDate(std::string date);
+
 };

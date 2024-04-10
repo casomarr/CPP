@@ -2,9 +2,9 @@
 
 int main (int argc, char **argv) 
 {
-	if (argc != 2)
+ 	if (argc != 2)
 	{
-		std::cerr << "Expected: ./bitcoin_exchange <file>" << std::endl;
+		std::cerr << "Expected: ./btc <file>" << std::endl;
 		return 1;
 	}
 
@@ -27,7 +27,7 @@ int main (int argc, char **argv)
 	bitcoin.exchangeRate("2021-10-06", 1);
 	bitcoin.exchangeRate("2021-10-06", 3);
 
-	std::cout <<std::endl << "DATE NOT IN .CSV : closest date taken into account" << std::endl << std::endl;
+	std::cout /* <<std::endl */ << "DATE NOT IN .CSV : closest date taken into account" << std::endl << std::endl;
 	
 	//date not in .csv : takes the closest date
 	bitcoin.exchangeRate("2027-10-06", 1);
@@ -39,14 +39,14 @@ int main (int argc, char **argv)
 	bitcoin.exchangeRate("2021/10/06", 1);
 	bitcoin.exchangeRate("06-10-2021", 1);
 
+	//unexisting date
+	bitcoin.exchangeRate("2021-42-42", 1);
+
 	//int max : "error : number too large"
-	bitcoin.exchangeRate("06-10-2021", INT_MAX);
+	bitcoin.exchangeRate("2019-07-04", 2147483648);
 
 	//value is not a positive value
 	bitcoin.exchangeRate("2021-10-06", -3);
-
-	//value is not a number
-	bitcoin.exchangeRate("2021-10-06", 'h'); //ça passe parce que ça le convertit en int. Normal? Ou je dos le gérer
 
 	return 0;
 }
