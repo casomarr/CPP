@@ -170,7 +170,7 @@ void	BitcoinExchange::fill_info(std::ifstream &file/* , int fileType */)
 	std::string line;
 	std::string date;
 	std::string str_value;
-	int value;
+	float value;
 	int first_line = 0;
 
 	while (std::getline(file, line))
@@ -215,13 +215,21 @@ void	BitcoinExchange::fill_info(std::ifstream &file/* , int fileType */)
 
 }
 
-bool	BitcoinExchange::wrong_type(std::string const &filename)
+bool	BitcoinExchange::wrong_type(std::string const &filename, int fileType)
 {
-	unsigned int i = filename.length();
 
-	if (filename[i] == 'v' && filename[i-1] == 's' && filename[i-2] == 'c' && filename[i-3] == '.')
-		return true;
-	return false;
+	long unsigned int i = filename.length();
+	if (fileType == CSV)
+	{
+		if (filename[i] == 'v' && filename[i-1] == 's' && filename[i-2] == 'c' && filename[i-3] == '.')
+			return false;
+	}
+	else if (fileType == TXT)
+	{
+		if (filename[i] == 't' && filename[i-1] == 'x' && filename[i-2] == 't' && filename[i-3] == '.')
+			return false;
+	}
+	return true;
 }
 
 BitcoinExchange::BitcoinExchange(std::string const &filename)
@@ -229,7 +237,7 @@ BitcoinExchange::BitcoinExchange(std::string const &filename)
 	_file_data_ok = true;
 	try
 	{
-		if (wrong_type(filename) == true)
+		if (wrong_type(filename, CSV) == true)
 			throw std::runtime_error("wrong file type : expected .csv");
 
 		std::ifstream	file;
@@ -304,10 +312,9 @@ BitcoinExchange &BitcoinExchange::operator=(BitcoinExchange const &rhs)
 void BitcoinExchange::exchangeRate(std::string const &filename)
 {
 	if (_file_data_ok == false)
-	{
-		std::cout <<"Error in .csv file : can't run exchangeRate with .txt file" <<std::endl;
-		return;
-	}
+		throw std::runtime_error("Error in CSV file : can't run exchangeRate with .txt file");
+	if (wrong_type(filename, TXT) == true)
+		throw std::runtime_error("wrong file type : expected .txt");
 	// try
 	// {
 	// 	if (wrong_type(filename) == true)
@@ -347,7 +354,7 @@ void BitcoinExchange::exchangeRate(std::string const &filename)
 	// file.close();
 //-----------------------
 
-	if (wrong_type(filename) == true)
+	if (wrong_type(filename, TXT) == true)
 		throw std::runtime_error("wrong file type : expected .txt");
 
 	std::ifstream	file;
@@ -385,17 +392,14 @@ void BitcoinExchange::exchangeRate(std::string const &filename)
 	}
 	file.close();
 
-
-
-
-	std::map<std::string, int>::iterator it_csv; //IMPORTANT: it->first (key) / it->second (value)
+	std::map<std::string, float>::iterator it_csv; //IMPORTANT: it->first (key) / it->second (value)
 	std::map<std::string, std::string>::iterator it_txt;
 	it_txt = _txt.begin();
 	float nb;
-	// bool ok = true;
+	bool ok = true;
 	while (it_txt != _txt.end())
 	{
-		// ok = true;
+		ok = true;
 		std::cout <<"Date = " <<it_txt->first <<" | " <<"value = " <<it_txt->second <<std::endl;
 		try
 		{
@@ -410,19 +414,19 @@ void BitcoinExchange::exchangeRate(std::string const &filename)
 				if (it_csv == _csv.begin() && it_csv->first != it_txt->first) 
 				{
 					std::cout << "No preceding date found" << std::endl;
-					// ok = false;
+					ok = false;
 					// return;
-					//break;
+					// break;
 				}
-				// if (ok == true)
+				if (ok == true)
 					--it_csv; // Move to the closest preceding date
 			}
-			// if (ok == true)
-			// {
+			if (ok == true)
+			{
 				std::cout <<"Date = " <<it_csv->first <<" | Exchange Rate = " <<it_csv->second <<std::endl;
 				std::cout <<"Result = " <<it_csv->second <<" * " <<nb <<" = ";
 				std::cout <<(it_csv->second * nb) <<std::endl <<std::endl;
-			// }
+			}
 		}
 		catch(const std::exception& e)
 		{
