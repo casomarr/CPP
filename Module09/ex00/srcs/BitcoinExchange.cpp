@@ -7,7 +7,7 @@ std::string		BitcoinExchange::getDate(std::string line)
 
 	while (line[i] != ' ' && line[i])
 	{
-		date = date + line[i]; //IMPORTANT: date[i] = line[i] ne marchr pas en c++!!!!
+		date = date + line[i]; //IMPORTANT: date[i] = line[i] ne marche pas en c++!!!!
 		i++;
 	}
 	if (line[i] == '\0' || line[i+1] != '|')
@@ -27,8 +27,6 @@ std::string		BitcoinExchange::getValue(std::string line)
 	i++; //to skip space
 	while(line[i] != '\0')
 	{
-		// value = value * 10 + (line[i] -'0');
-		//str_value[i] = line[i];
 		str_value = str_value + line[i];
 		i++;
 	}
@@ -47,9 +45,6 @@ bool	BitcoinExchange::isValidDate(std::string date)
 		month = month * 10 + (date[i] - '0');
 	for (int i = 8; i < 10 ; i++)
 		day = day * 10 + (date[i] - '0');
-
-	// std::cout <<"Date = " <<date <<std::endl;
-	// std::cout <<"year = " <<year <<" | month = " <<month <<" | day = " <<day <<std::endl;
 
 	if (month < 1 || month > 12)
 		return false;
@@ -82,12 +77,12 @@ void	BitcoinExchange::checkDateFormat(std::string date)
 	if (date[4] != '-')
 		throw std::runtime_error("Wrong date Format. Expecting : YYYY-MM-DD");
 	for (int i = 5; i < 7; i++)
-		if (std::isdigit(static_cast<unsigned char>(date[i])) == 0) //not a nb
+		if (std::isdigit(static_cast<unsigned char>(date[i])) == 0)
 			throw std::runtime_error("Wrong date Format. Expecting : YYYY-MM-DD");
 	if (date[7] != '-')
 		throw std::runtime_error("Wrong date Format. Expecting : YYYY-MM-DD");
 	for (int i = 8; i < 10; i++)
-		if (std::isdigit(static_cast<unsigned char>(date[i])) == 0) //not a nb
+		if (std::isdigit(static_cast<unsigned char>(date[i])) == 0)
 			throw std::runtime_error("Wrong date Format. Expecting : YYYY-MM-DD");
 	if (date[10] != '\0')
 		throw std::runtime_error("Wrong date Format. Expecting : YYYY-MM-DD");
@@ -106,9 +101,9 @@ float	BitcoinExchange::checkValueFormat(std::string str_value)
 
 	while(str_value[i] != '\0')
 	{
-		if (std::isdigit(str_value[i]) == 0/*  && str_value[i] != '.' */) //if not a digit
+		if (std::isdigit(str_value[i]) == 0) //if not a digit
 		{
-			if (str_value[i] == '.') //if it's a point
+			if (str_value[i] == '.')
 			{
 				pointCount++;
 				if (pointCount > 1)
@@ -132,12 +127,7 @@ float	BitcoinExchange::checkValueFormat(std::string str_value)
 
 float	BitcoinExchange::checkValueFormat(float value)
 {
-	// std::string str_value;
-
-	// str_value = itoa(value);
-	// itoa(value, str_value.c_str(), 10);
-
-	//equivalent of itoa in c++
+	//equivalent of itoa in c++98
 	std::stringstream ss;
 	ss << value;
 	std::string str_value = ss.str();
@@ -147,9 +137,9 @@ float	BitcoinExchange::checkValueFormat(float value)
 	long unsigned int i = 0;
 	while(str_value[i] != '\0')
 	{
-		if (std::isdigit(static_cast<unsigned char>(str_value[i])) == 0/*  && str_value[i] != '.' */) //if not a digit
+		if (std::isdigit(static_cast<unsigned char>(str_value[i])) == 0) //if not a digit
 		{
-			if (str_value[i] == '.') //if it's a point
+			if (str_value[i] == '.')
 			{
 				pointCount++;
 				if (pointCount > 1)
@@ -167,7 +157,7 @@ float	BitcoinExchange::checkValueFormat(float value)
 	return value;
 }
 
-void	BitcoinExchange::fill_info(std::ifstream &file/* , int fileType */)
+void	BitcoinExchange::fill_info(std::ifstream &file)
 {
 	std::string line;
 	std::string date;
@@ -177,44 +167,24 @@ void	BitcoinExchange::fill_info(std::ifstream &file/* , int fileType */)
 
 	while (std::getline(file, line))
 	{
-		if (first_line == 0) //to skip title line
+		if (first_line == 0) //to skip title line //CHECK
 			first_line++;
 		else
 		{
-			date = "";
-			str_value = "";
-			value = -1;
+			date = getDate(line);
+			checkDateFormat(date);
 
-			try //FIX ce try and catch ne change rien du coup 1000 + 1 dans fichier n'est pas catch
-			{
-				date = getDate(line);
-				checkDateFormat(date);
+			str_value = getValue(line);
+			value = checkValueFormat(str_value);
 
-				str_value = getValue(line);
-				value = checkValueFormat(str_value);
-			}
-			catch(const std::exception& e)
-			{
-				//std::cerr << e.what() << '\n'; //sinon avec throw en bas ca ecrirait deux fois l exception
-				//std::cout <<"EXCEPTION CAUGHT HERE" <<std::endl; //TEST
-				throw; //re-throw exception
-				//return ;
-			}
-			
-			// if (fileType == CSV)
-				_csv[date] = value;
-			// else if (fileType == TXT )
-			// 	_txt[date] = value;
+			_csv[date] = value;
 		}
 	}
-	if (/* fileType == CSV &&  */_csv.empty() == true)
+	if (_csv.empty() == true)
 	{
 		std::cout <<"Error: csv file is empty" <<std::endl;
 		_file_data_ok = false;
 	}
-	// if (fileType == TXT && _txt.empty() == true) //IMPORTANT check if txt is empty ailleurs
-	// 	std::cout <<"Error: txt file is empty" <<std::endl;
-
 }
 
 bool	BitcoinExchange::wrong_type(std::string const &filename, int fileType)
@@ -246,7 +216,7 @@ BitcoinExchange::BitcoinExchange(std::string const &filename)
 		file.open(filename.c_str(), std::ios::in);
 		if (!file)
 			throw std::runtime_error("wrong filename : failed to open file");
-		fill_info(file/* , CSV */);
+		fill_info(file);
 		file.close();
 	}
 	catch(const std::exception& e)
@@ -254,14 +224,16 @@ BitcoinExchange::BitcoinExchange(std::string const &filename)
 		std::cerr <<"Error in CSV file : " <<e.what() << '\n';
 		_file_data_ok = false;
 		return ;
-		//throw; //re-throw exception
 	}
+}
+
+BitcoinExchange::BitcoinExchange()
+{
+	_file_data_ok = true;
 }
 
 BitcoinExchange::~BitcoinExchange()
 {
-	_file_data_ok = true;
-	//IMPORTANT: _file_data_ok = true; et _csv les mettre dans constructeur par default, de copy et = !!!
 }
 
 BitcoinExchange::BitcoinExchange(BitcoinExchange const &other)
@@ -271,91 +243,16 @@ BitcoinExchange::BitcoinExchange(BitcoinExchange const &other)
 
 BitcoinExchange &BitcoinExchange::operator=(BitcoinExchange const &rhs)
 {
+	_file_data_ok = rhs._file_data_ok;
 	_csv = rhs._csv;
+	_txt = rhs._txt;
 	return *this;
 }
-
-/* void BitcoinExchange::exchangeRate(std::string date, long long int nb)
-{
-	if (_file_data_ok == false)
-	{
-		std::cout <<"Error in file : can't run exchangeRate" <<std::endl;
-		return;
-	}
-	try
-	{
-		checkDateFormat(date);
-		checkValueFormat(nb);
-	}
-	catch(const std::exception& e)
-	{
-		std::cerr << e.what() << '\n';
-		return ;
-	}
-	
-	std::map<std::string, int>::iterator it; //IMPORTANT: it->first (key) / it->second (value)
-	it = _csv.find(date);
-	if (it == _csv.end())
-	{
-		it = _csv.lower_bound(date);
-
-		if (it == _csv.begin() && it->first != date) 
-		{
-			std::cout << "No preceding date found" << std::endl;
-			return;
-		}
-		--it; // Move to the closest preceding date
-	}
-	std::cout <<"Date = " <<it->first <<" | Exchange Rate = " <<it->second <<std::endl;
-	std::cout <<"Result = " <<it->second <<" * " <<nb <<" = ";
-	std::cout <<(it->second * nb) <<std::endl <<std::endl;
-} */
 
 void BitcoinExchange::exchangeRate(std::string const &filename)
 {
 	if (_file_data_ok == false)
 		throw std::runtime_error("Error in CSV file : can't run exchangeRate with .txt file");
-	if (wrong_type(filename, TXT) == true)
-		throw std::runtime_error("wrong file type : expected .txt");
-	// try
-	// {
-	// 	if (wrong_type(filename) == true)
-	// 		throw std::runtime_error("wrong file type : expected .txt");
-
-	// 	std::ifstream	file;
-	// 	file.open(filename.c_str(), std::ios::in);
-	// 	if (!file)
-	// 		throw std::runtime_error("wrong filename : failed to open file");
-	// 	// fill_info(file, TXT); /*IMPORTANT: pour _txt les try and catch doivent 
-	// 	// se faire a chaque ligne et non fill tout d un coup donc pas besoin de 
-	// 	// faire un std::map pour _txt car le sujet specifie de run tout le .txt,
-	// 	// meme si erreurs. Ou specifier de ne pas catch les erreurs de fill_info
-	// 	// de _txt mais il y a moyen que ca beugue je pense*/
-	// 	file.close();
-	// }
-	// catch(const std::exception& e)
-	// {
-	// 	std::cerr << e.what() << '\n';
-	// 	return ;
-	// }
-
-
-//---------- test hor try (mais tout ne peut pas etre hors try : specifier le type d exceptions a catch)
-	// if (wrong_type(filename) == true)
-	// 	throw std::runtime_error("wrong file type : expected .txt");
-
-	// std::ifstream	file;
-	// file.open(filename.c_str(), std::ios::in);
-	// if (!file)
-	// 	throw std::runtime_error("wrong filename : failed to open file");
-	// fill_info(file, TXT); /*IMPORTANT: pour _txt les try and catch doivent 
-	// // se faire a chaque ligne et non fill tout d un coup donc pas besoin de 
-	// // faire un std::map pour _txt car le sujet specifie de run tout le .txt,
-	// // meme si erreurs. Ou specifier de ne pas catch les erreurs de fill_info
-	// // de _txt mais il y a moyen que ca beugue je pense*/
-	// file.close();
-//-----------------------
-
 	if (wrong_type(filename, TXT) == true)
 		throw std::runtime_error("wrong file type : expected .txt");
 
@@ -371,37 +268,10 @@ void BitcoinExchange::exchangeRate(std::string const &filename)
 
 	while (std::getline(file, line))
 	{
-		if (first_line == 0) //to skip title line
+		if (first_line == 0) //to skip title line //CHECK
 			first_line++;
 		else
 		{
-			/* if (line.length() < 14)
-				// throw std::runtime_error("Error: line format"); //check le message exact plus haut pour homogeneite
-			{
-				//HERE
-				long unsigned int i = 0;
-				while (line[i] != '|' && line[i])
-					i++;
-				date = line.substr(0, i);
-				i++;
-				if (i < line.length())
-					value = line.substr(i, line.length());
-				else
-					value = "ERROR";
-				// date = "";
-				// value = "";
-				// date = line.substr(0, line.length());
-				// date = date + " ";
-				// value = "";
-			}
-			else
-			{
-				//if (line.length() >= 10) //peut etre que copyString est dej aprotege?
-				date = line.substr(0, 10);
-				// for (int i = 13; line[i] != '\0'; i++)
-				// 	value = value * 10 + (line[i] - '0');
-				value = line.substr(13, line.length());
-			} */
 			long unsigned int i = 0;
 			while (line[i] != ' ' && line[i])
 				i++;
@@ -416,7 +286,7 @@ void BitcoinExchange::exchangeRate(std::string const &filename)
 	}
 	file.close();
 
-	std::map<std::string, float>::iterator it_csv; //IMPORTANT: it->first (key) / it->second (value)
+	std::map<std::string, float>::iterator it_csv; //it->first (key) / it->second (value)
 	std::map<std::string, std::string>::iterator it_txt;
 	it_txt = _txt.begin();
 	float nb;
@@ -439,18 +309,15 @@ void BitcoinExchange::exchangeRate(std::string const &filename)
 				{
 					std::cout << "No preceding date found" << std::endl;
 					ok = false;
-					// return;
-					// break;
 				}
 				if (ok == true)
 					--it_csv; // Move to the closest preceding date
 			}
 			if (ok == true)
 			{
-				std::cout <<"Corresponding CSV Date = " <<it_csv->first <<" | Exchange Rate = " <<it_csv->second <<std::endl; //TODO: garder cette ligne pour correction
-				std::cout <<"Result = " <<it_csv->second <<" * " <<nb <<" = "; //TODO: garder cette ligne pour correction
+				std::cout <<"Corresponding CSV Date = " <<it_csv->first <<" | Exchange Rate = " <<it_csv->second <<std::endl;
+				std::cout <<"Result = " <<it_csv->second <<" * " <<nb <<" = ";
 				std::cout <<(it_csv->second * nb) <<std::endl;
-				// sleep(2); //TEST
 			}
 		}
 		catch(const std::exception& e)

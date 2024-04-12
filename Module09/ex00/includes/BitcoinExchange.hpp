@@ -10,8 +10,6 @@
 #include <istream> //necessaire?
 #include <fstream> //getline
 
-#include <unistd.h> //for sleep()
-
 #define CSV 1
 #define TXT 2
 
@@ -30,10 +28,9 @@ class BitcoinExchange
 		BitcoinExchange(std::string const &filename);
 		~BitcoinExchange();
 
-		// void			exchangeRate(std::string date, long long int nb);
 		void			exchangeRate(std::string const &filename);
 		bool			wrong_type(std::string const &filename, int fileType);
-		void			fill_info(std::ifstream &file/* , int fileType */);
+		void			fill_info(std::ifstream &file);
 		std::string		getDate(std::string line);
 		std::string		getValue(std::string line);
 		void			checkDateFormat(std::string date);
