@@ -32,12 +32,8 @@ void RPN::check_valid_operation(std::string operation)
 		if (std::isdigit(operation[i]) == 0 && operation[i] != '+' && \
 		 operation[i] != '-' && operation[i] != '*' && operation[i] != '/' && operation[i] != ' ')
 			throw std::runtime_error("Unvalid operation : wrong character");
-		if (std::isdigit(operation[i]) != 0)
-		{
-			while(std::isdigit(operation[i]) != 0)
-				i++;
+		if (std::isdigit(operation[i]) != 0) //if is a nb
 			digit_nb ++;
-		}
 		if (operation[i] == '+' || operation[i] == '-' || \
 		operation[i] == '*' || operation[i] == '/')
 			sign_nb++;
