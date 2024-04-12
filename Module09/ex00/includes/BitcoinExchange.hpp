@@ -10,6 +10,8 @@
 #include <istream> //necessaire?
 #include <fstream> //getline
 
+#include <unistd.h> //for sleep()
+
 #define CSV 1
 #define TXT 2
 

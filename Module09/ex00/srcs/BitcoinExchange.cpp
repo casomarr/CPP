@@ -11,7 +11,7 @@ std::string		BitcoinExchange::getDate(std::string line)
 		i++;
 	}
 	if (line[i] == '\0' || line[i+1] != '|')
-		throw std::runtime_error("Error: wrong line format");
+		throw std::runtime_error("Error: wrong line format. Expecting : YYYY-MM-DD | value");
 	return date;
 }
 
@@ -97,6 +97,8 @@ void	BitcoinExchange::checkDateFormat(std::string date)
 
 float	BitcoinExchange::checkValueFormat(std::string str_value)
 {
+	if (str_value == "ERROR")
+		throw std::runtime_error("Error: line format");
 	float value = -1;
 
 	long unsigned int i = 0;
@@ -104,7 +106,7 @@ float	BitcoinExchange::checkValueFormat(std::string str_value)
 
 	while(str_value[i] != '\0')
 	{
-		if (std::isdigit(str_value[i]) == 0 && str_value[i] != '.') //if not a digit
+		if (std::isdigit(str_value[i]) == 0/*  && str_value[i] != '.' */) //if not a digit
 		{
 			if (str_value[i] == '.') //if it's a point
 			{
@@ -222,14 +224,14 @@ bool	BitcoinExchange::wrong_type(std::string const &filename, int fileType)
 	if (fileType == CSV)
 	{
 		if (filename[i] == 'v' && filename[i-1] == 's' && filename[i-2] == 'c' && filename[i-3] == '.')
-			return false;
+			return true;
 	}
 	else if (fileType == TXT)
 	{
 		if (filename[i] == 't' && filename[i-1] == 'x' && filename[i-2] == 't' && filename[i-3] == '.')
-			return false;
+			return true;
 	}
-	return true;
+	return false;
 }
 
 BitcoinExchange::BitcoinExchange(std::string const &filename)
@@ -373,11 +375,24 @@ void BitcoinExchange::exchangeRate(std::string const &filename)
 			first_line++;
 		else
 		{
-			if (line.length() < 14)
+			/* if (line.length() < 14)
 				// throw std::runtime_error("Error: line format"); //check le message exact plus haut pour homogeneite
 			{
-				date = ""; //CHECK si bonne idee
-				value = "";
+				//HERE
+				long unsigned int i = 0;
+				while (line[i] != '|' && line[i])
+					i++;
+				date = line.substr(0, i);
+				i++;
+				if (i < line.length())
+					value = line.substr(i, line.length());
+				else
+					value = "ERROR";
+				// date = "";
+				// value = "";
+				// date = line.substr(0, line.length());
+				// date = date + " ";
+				// value = "";
 			}
 			else
 			{
@@ -385,8 +400,17 @@ void BitcoinExchange::exchangeRate(std::string const &filename)
 				date = line.substr(0, 10);
 				// for (int i = 13; line[i] != '\0'; i++)
 				// 	value = value * 10 + (line[i] - '0');
-				value = line.substr(13, line.length() - 1);
-			}
+				value = line.substr(13, line.length());
+			} */
+			long unsigned int i = 0;
+			while (line[i] != ' ' && line[i])
+				i++;
+			date = line.substr(0, i);
+			i+= 3; //to skip " | "
+			if (i < line.length())
+				value = line.substr(i, line.length());
+			else
+				value = "ERROR";
 			_txt[date] = value;
 		}
 	}
@@ -400,7 +424,7 @@ void BitcoinExchange::exchangeRate(std::string const &filename)
 	while (it_txt != _txt.end())
 	{
 		ok = true;
-		std::cout <<"Date = " <<it_txt->first <<" | " <<"value = " <<it_txt->second <<std::endl;
+		std::cout <<"TXT Date = " <<it_txt->first <<" | " <<"value = " <<it_txt->second <<std::endl;
 		try
 		{
 			checkDateFormat(it_txt->first);
@@ -423,15 +447,17 @@ void BitcoinExchange::exchangeRate(std::string const &filename)
 			}
 			if (ok == true)
 			{
-				std::cout <<"Date = " <<it_csv->first <<" | Exchange Rate = " <<it_csv->second <<std::endl;
-				std::cout <<"Result = " <<it_csv->second <<" * " <<nb <<" = ";
-				std::cout <<(it_csv->second * nb) <<std::endl <<std::endl;
+				std::cout <<"Corresponding CSV Date = " <<it_csv->first <<" | Exchange Rate = " <<it_csv->second <<std::endl; //TODO: garder cette ligne pour correction
+				std::cout <<"Result = " <<it_csv->second <<" * " <<nb <<" = "; //TODO: garder cette ligne pour correction
+				std::cout <<(it_csv->second * nb) <<std::endl;
+				// sleep(2); //TEST
 			}
 		}
 		catch(const std::exception& e)
 		{
 			std::cerr <<"Error in TXT file : " << e.what() << '\n';
 		}
+		std::cout <<std::endl;
 		it_txt++;
 	}
 }
