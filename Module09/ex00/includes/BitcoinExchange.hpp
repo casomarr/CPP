@@ -4,11 +4,9 @@
 #include <climits>
 #include <string>
 #include <map>
-#include <stdlib.h> //necessaire?
 #include <cstdlib> //for atoi
-#include <sstream> //pour équivalent de itoa
-#include <istream> //necessaire?
-#include <fstream> //getline
+#include <sstream> //for stringstream (equivalent of itoa)
+#include <fstream> //for getline
 
 #define CSV 1
 #define TXT 2

@@ -182,7 +182,7 @@ void	BitcoinExchange::fill_info(std::ifstream &file)
 	}
 	if (_csv.empty() == true)
 	{
-		std::cout <<"Error: csv file is empty" <<std::endl;
+		std::cout <<"Error in CSV file: empty file" <<std::endl;
 		_file_data_ok = false;
 	}
 }
@@ -193,12 +193,12 @@ bool	BitcoinExchange::wrong_type(std::string const &filename, int fileType)
 	long unsigned int i = filename.length();
 	if (fileType == CSV)
 	{
-		if (filename[i] == 'v' && filename[i-1] == 's' && filename[i-2] == 'c' && filename[i-3] == '.')
+		if (filename[i-1] == 'v' && filename[i-2] == 's' && filename[i-3] == 'c' && filename[i-4] == '.')
 			return true;
 	}
 	else if (fileType == TXT)
 	{
-		if (filename[i] == 't' && filename[i-1] == 'x' && filename[i-2] == 't' && filename[i-3] == '.')
+		if (filename[i-1] == 't' && filename[i-2] == 'x' && filename[i-3] == 't' && filename[i-4] == '.')
 			return true;
 	}
 	return false;
@@ -209,7 +209,7 @@ BitcoinExchange::BitcoinExchange(std::string const &filename)
 	_file_data_ok = true;
 	try
 	{
-		if (wrong_type(filename, CSV) == true)
+		if (wrong_type(filename, CSV) == false)
 			throw std::runtime_error("wrong file type : expected .csv");
 
 		std::ifstream	file;
@@ -253,13 +253,15 @@ void BitcoinExchange::exchangeRate(std::string const &filename)
 {
 	if (_file_data_ok == false)
 		throw std::runtime_error("Error in CSV file : can't run exchangeRate with .txt file");
-	if (wrong_type(filename, TXT) == true)
+	if (wrong_type(filename, TXT) == false)
 		throw std::runtime_error("wrong file type : expected .txt");
 
 	std::ifstream	file;
 	file.open(filename.c_str(), std::ios::in);
 	if (!file)
 		throw std::runtime_error("wrong filename : failed to open file");
+	if (file.peek() == std::ifstream::traits_type::eof())
+		throw std::runtime_error("Error in TXT file : empty file");
 
 	std::string line;
 	std::string date;
