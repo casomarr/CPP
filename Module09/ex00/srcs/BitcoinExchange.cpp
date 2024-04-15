@@ -5,13 +5,13 @@ std::string		BitcoinExchange::getDate(std::string line)
 	std::string date;
 	int i = 0;
 
-	while (line[i] != ' ' && line[i])
+	while (line[i] != ',' && line[i])
 	{
 		date = date + line[i]; //IMPORTANT: date[i] = line[i] ne marche pas en c++!!!!
 		i++;
 	}
-	if (line[i] == '\0' || line[i+1] != '|')
-		throw std::runtime_error("Error: wrong line format. Expecting : YYYY-MM-DD | value");
+	if (line[i] == '\0' || line[i] != ',')
+		throw std::runtime_error("Error: wrong line format. Expecting : YYYY-MM-DD,value");
 	return date;
 }
 
@@ -20,11 +20,11 @@ std::string		BitcoinExchange::getValue(std::string line)
 	std::string str_value = "";
 	int i = 0;
 
-	while (line[i] != '|' && line[i])
+	while (line[i] != ',' && line[i])
 		i++;
-	if (line[i] == '\0' || line[i+1] != ' ')
-		throw std::runtime_error("Error: wrong line format");
-	i++; //to skip space
+	if (line[i] == '\0' || line[i] != ',')
+		throw std::runtime_error("Error: wrong line format. Expecting : YYYY-MM-DD,value");
+	i++; //to skip coma
 	while(line[i] != '\0')
 	{
 		str_value = str_value + line[i];
