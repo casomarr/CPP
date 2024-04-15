@@ -14,12 +14,28 @@ int main(int argc, char **argv)
 
 	std::list<int> list(vector.begin(), vector.end()); //transforms vector into list to keep the same numbers
 
+	// std::vector<int> array_to_pint = vector.getSortedArray();
+	PmergeMe<std::vector<int> > pmerge(vector); 
+	std::vector<int> array_to_pint = pmerge.getSortedArray(); //HERE (works)
+
+	std::cout << "Before:";
+	for (std::vector<int>::iterator it = array_to_pint.begin(); it != array_to_pint.end(); ++it) //GRAMMAR: rajouter devant std::vector::iterator
+		std::cout << " " << *it;
+
+	std::cout << std::endl;
 	try
 	{
 		clock_t start = clock();
-		// PmergeMe <std::vector<int> >pmergeVector(vector);
-		PmergeMe pmergeVector(vector);
+		PmergeMe<std::vector<int> > pmergeVector(vector);
 		clock_t end = clock();
+
+
+		std::cout << "After:";
+		for (std::vector<int>::iterator it = array_to_pint.begin(); it != array_to_pint.end(); ++it)
+			std::cout << " " << *it;
+		std::cout << std::endl;
+
+
 		std::cout << "Time to process a range of " <<argc -1 <<" elements with std::vector : " \
 		<<(double)(end - start) <<" us" <<std::endl;
 		std::cout << std::endl;
@@ -32,8 +48,7 @@ int main(int argc, char **argv)
 	try
 	{
 		clock_t start = clock();
-		// PmergeMe <std::list<int> >pmergeList(list);
-		PmergeMe pmergeVector(list);
+		PmergeMe<std::list<int> > pmergeVector(list);
 		clock_t end = clock();
 		std::cout << "Time to process a range of " <<argc -1 <<" elements with std::list : " \
 		<<(double)(end - start) <<" us" <<std::endl;
@@ -42,13 +57,6 @@ int main(int argc, char **argv)
 	{
 		std::cerr << e.what() << '\n';
 	}
-
-	/*POUR QUE CE SOIT EXACTEMENT COMME DANS LE SUJET DE CORRECTION IL FAUDRAIT
-	METTRE SEULEMENT DEUX FONCTIONS EN PUBLIC : UN GETTEUR QUI PRINT LE VECTEUR
-	OU LA LIST SORTED DEPUIS LE MAIN (POUR PAS QUE ÇA S'AFFICHE EN DOUBLE) AINSI
-	QUE LE CONSTRUCTEUR ET LE DECONSTRUCTEUR PAR DÉFAULT (ET LES AUTRES FONCTIONS)
-	DE LA FORME CANIONIQUE SI ON VEUT). tOUTES ES AUTRES FONCTIONS N'ONT AUCUNE
-	RAISON D'ÊTRE NE PUBLIC.*/
 	
 	return 0;
 }
