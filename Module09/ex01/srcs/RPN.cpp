@@ -26,7 +26,6 @@ void RPN::check_valid_operation(std::string operation)
 	unsigned int digit_nb = 0;
 	unsigned int sign_nb = 0;
 
-	//si pas un num && ...
 	for (int i = 0; operation[i] != '\0'; i++)
 	{
 		if (std::isdigit(operation[i]) == 0 && operation[i] != '+' && \

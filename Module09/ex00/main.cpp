@@ -47,7 +47,7 @@ int main (int argc, char **argv)
 	try
 	{
 		std::cout <<"EMPTY TXT FILE" <<std::endl;
-		BitcoinExchange bitcoin("test_files/input.csv");
+		BitcoinExchange bitcoin("test_files/data.csv");
 		bitcoin.exchangeRate("test_files/empty_file.txt");
 	}
 	catch(const std::exception& e)
@@ -58,7 +58,7 @@ int main (int argc, char **argv)
 	try
 	{
 		std::cout <<"ERRORS IN TXT FILE" <<std::endl;
-		BitcoinExchange bitcoin("test_files/input.csv");
+		BitcoinExchange bitcoin("test_files/data.csv");
 		bitcoin.exchangeRate("test_files/errors_file.txt");
 	}
 	catch(const std::exception& e)
@@ -70,7 +70,7 @@ int main (int argc, char **argv)
 	std::cout <<"WORKING FILE" <<std::endl;
 	try
 	{
-		BitcoinExchange bitcoin("test_files/input.csv");
+		BitcoinExchange bitcoin("test_files/data.csv");
 		bitcoin.exchangeRate(argv[1]);
 	}
 	catch(const std::exception& e)

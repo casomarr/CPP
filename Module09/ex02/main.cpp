@@ -17,8 +17,8 @@ int main(int argc, char **argv)
 	std::cout << "Before:";
 	for (std::vector<int>::iterator it = vector.begin(); it != vector.end(); it++)
 		std::cout << " " << *it;
-
 	std::cout << std::endl;
+
 	try
 	{
 		clock_t start = clock();
@@ -31,7 +31,7 @@ int main(int argc, char **argv)
 		std::cout << "After:";
 		for (std::vector<int>::iterator it = sorted_vector.begin(); it != sorted_vector.end(); it++)
 			std::cout << " " << *it;
-		std::cout << std::endl;
+		std::cout << std::endl << std::endl;
 
 
 		std::cout << "Time to process a range of " <<argc -1 <<" elements with std::vector : " \

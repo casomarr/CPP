@@ -118,8 +118,8 @@ float	BitcoinExchange::checkValueFormat(std::string str_value)
 
 	if (value < 0)
 		throw std::runtime_error("Error : negative number");
-
-	if (static_cast<long long int>(value) > INT_MAX)
+	long long int value_int = atoll(str_value.c_str());
+	if (value_int > INT_MAX)
 		throw std::runtime_error("Error : number > INT_MAX");
 
 	return value;
@@ -151,8 +151,8 @@ float	BitcoinExchange::checkValueFormat(float value)
 
 	if (value < 0)
 		throw std::runtime_error("Error : negative number");
-	if (value > 1000)
-		throw std::runtime_error("Error : number > 1000");
+	if (value > FLT_MAX)
+		throw std::runtime_error("Error : number > FLT_MAX");
 
 	return value;
 }
@@ -301,6 +301,11 @@ void BitcoinExchange::exchangeRate(std::string const &filename)
 		{
 			checkDateFormat(it_txt->first);
 			nb = checkValueFormat(it_txt->second);
+			if (nb > 1000)
+			{
+				std::cout <<"Error in TXT file : value > 1000" <<std::endl;
+				ok = false;
+			}
 
 			it_csv = _csv.find(it_txt->first);
 			if (it_csv == _csv.end())

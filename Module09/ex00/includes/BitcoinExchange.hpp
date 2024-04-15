@@ -7,6 +7,7 @@
 #include <cstdlib> //for atoi
 #include <sstream> //for stringstream (equivalent of itoa)
 #include <fstream> //for getline
+#include <cfloat> //for FLT_MAX
 
 #define CSV 1
 #define TXT 2
