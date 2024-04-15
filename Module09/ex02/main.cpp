@@ -14,12 +14,8 @@ int main(int argc, char **argv)
 
 	std::list<int> list(vector.begin(), vector.end()); //transforms vector into list to keep the same numbers
 
-	// std::vector<int> array_to_pint = vector.getSortedArray();
-	PmergeMe<std::vector<int> > pmerge(vector); 
-	std::vector<int> array_to_pint = pmerge.getSortedArray(); //HERE (works)
-
 	std::cout << "Before:";
-	for (std::vector<int>::iterator it = array_to_pint.begin(); it != array_to_pint.end(); ++it) //GRAMMAR: rajouter devant std::vector::iterator
+	for (std::vector<int>::iterator it = vector.begin(); it != vector.end(); it++)
 		std::cout << " " << *it;
 
 	std::cout << std::endl;
@@ -30,8 +26,10 @@ int main(int argc, char **argv)
 		clock_t end = clock();
 
 
+		std::vector<int> sorted_vector = pmergeVector.getSortedArray();
+
 		std::cout << "After:";
-		for (std::vector<int>::iterator it = array_to_pint.begin(); it != array_to_pint.end(); ++it)
+		for (std::vector<int>::iterator it = sorted_vector.begin(); it != sorted_vector.end(); it++)
 			std::cout << " " << *it;
 		std::cout << std::endl;
 
