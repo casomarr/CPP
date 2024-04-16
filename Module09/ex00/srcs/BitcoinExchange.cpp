@@ -7,7 +7,7 @@ std::string		BitcoinExchange::getDate(std::string line)
 
 	while (line[i] != ',' && line[i])
 	{
-		date = date + line[i]; //IMPORTANT: date[i] = line[i] ne marche pas en c++!!!!
+		date = date + line[i]; //IMPORTANT: pour utiliser "date[i] = line[i]" il faut initialiser date a une taille de 10
 		i++;
 	}
 	if (line[i] == '\0' || line[i] != ',')
@@ -72,7 +72,7 @@ bool	BitcoinExchange::isValidDate(std::string date)
 void	BitcoinExchange::checkDateFormat(std::string date)
 {
 	for (int i = 0; i < 4; i++)
-		if (std::isdigit(static_cast<unsigned char>(date[i])) == 0) //not a nb
+		if (std::isdigit(static_cast<unsigned char>(date[i])) == 0) //if not a digit
 			throw std::runtime_error("Wrong date Format. Expecting : YYYY-MM-DD");
 	if (date[4] != '-')
 		throw std::runtime_error("Wrong date Format. Expecting : YYYY-MM-DD");
@@ -167,7 +167,7 @@ void	BitcoinExchange::fill_info(std::ifstream &file)
 
 	while (std::getline(file, line))
 	{
-		if (first_line == 0) //to skip title line //CHECK
+		if (first_line == 0) //to skip title line
 			first_line++;
 		else
 		{
@@ -270,7 +270,7 @@ void BitcoinExchange::exchangeRate(std::string const &filename)
 
 	while (std::getline(file, line))
 	{
-		if (first_line == 0) //to skip title line //CHECK
+		if (first_line == 0) //to skip title line
 			first_line++;
 		else
 		{

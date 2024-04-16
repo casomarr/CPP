@@ -23,6 +23,9 @@ RPN &RPN::operator=(const RPN &rhs)
 
 void RPN::check_valid_operation(std::string operation)
 {
+	if (operation.empty())
+		throw std::runtime_error("Unvalid operation : empty string");
+
 	unsigned int digit_nb = 0;
 	unsigned int sign_nb = 0;
 
@@ -31,7 +34,7 @@ void RPN::check_valid_operation(std::string operation)
 		if (std::isdigit(operation[i]) == 0 && operation[i] != '+' && \
 		 operation[i] != '-' && operation[i] != '*' && operation[i] != '/' && operation[i] != ' ')
 			throw std::runtime_error("Unvalid operation : wrong character");
-		if (std::isdigit(operation[i]) != 0) //if is a nb
+		if (std::isdigit(operation[i]) != 0) //if is a digit
 			digit_nb ++;
 		if (operation[i] == '+' || operation[i] == '-' || \
 		operation[i] == '*' || operation[i] == '/')
@@ -39,6 +42,19 @@ void RPN::check_valid_operation(std::string operation)
 	}
 	if (sign_nb != digit_nb - 1)
 		throw std::runtime_error("Unvalid operation : wrong number of digits and signs");
+	
+	int i = 0;
+	while(operation[i] == ' ' && operation[i])
+		i++;
+	if (isdigit(operation[i]) != 0) //is a digit
+	{
+		i++;
+		while(operation[i] == ' ' && operation[i])
+			i++;
+		if (operation[i] == '+' || operation[i] == '-' || \
+		operation[i] == '*' || operation[i] == '/')
+			throw std::runtime_error("Unvalid operation : wrong order of numbers and signs");
+	}
 }
 
 void RPN::reverse_polish_notation()
@@ -60,27 +76,27 @@ void RPN::reverse_polish_notation()
 			if (sign == '+')
 			{
 				result = first + second;
-				std::cout <<first <<" + " <<second <<" = " <<result <<std::endl;
+				// std::cout <<first <<" + " <<second <<" = " <<result <<std::endl;
 			}
 			else if (sign == '-')
 			{
 				result = first - second;
-				std::cout <<first <<" - " <<second <<" = " <<result <<std::endl;
+				// std::cout <<first <<" - " <<second <<" = " <<result <<std::endl;
 			}
 			else if (sign == '*')
 			{
 				result = first * second;
-				std::cout <<first <<" * " <<second <<" = " <<result <<std::endl;
+				// std::cout <<first <<" * " <<second <<" = " <<result <<std::endl;
 			}
 			else if (sign == '/')
 			{
 				if (second == 0)
 					throw std::runtime_error("Unvalid operation : division by 0");
 				result = first / second;
-				std::cout <<first <<" / " <<second <<" = " <<result <<std::endl;
+				// std::cout <<first <<" / " <<second <<" = " <<result <<std::endl;
 			}
-			else //SHOULD NEVER ARRIVE HERE
-				throw std::runtime_error("Unvalid operation : wrong sign");
+			else
+				throw std::runtime_error("Unvalid operation : wrong order of numbers and signs");
 			
 			_numbers.push(result);
 	}
@@ -92,10 +108,10 @@ RPN::RPN(std::string operation)
 
 	std::string signs;
 
-	int i = 0;
-	while(operation[i] != '\0')
+	unsigned long long int i = 0;
+	while(i < operation.size() && operation[i] != '\0')
 	{
-		if (std::isdigit(operation[i]) != 0) //if is a number
+		if (std::isdigit(operation[i]) != 0) //if is a digit
 			_numbers.push(operation[i] - '0'); //to convert char to int
 		else if (operation[i] == '+' || operation[i] == '-' || \
 		operation[i] == '*' || operation[i] == '/')
@@ -106,15 +122,15 @@ RPN::RPN(std::string operation)
 				if (operation[i] == '+' || operation[i] == '-' || \
 				operation[i] == '*' || operation[i] == '/')
 					signs = signs + operation[i];
-				if (std::isdigit(operation[i]) != 0) //if is a number
+				if (std::isdigit(operation[i]) != 0) //if is a digit
 					throw std::runtime_error("Unvalid operation");
 				i++;
 			}
-			int i = signs.size();
-			while(i >= 0)
+			int j = signs.size() - 1;
+			while(j >= 0)
 			{
-				_signs.push(signs[i]);
-				i--;
+				_signs.push(signs[j]);
+				j--;
 			}
 			reverse_polish_notation();
 			while(_signs.size() > 0)
@@ -122,5 +138,5 @@ RPN::RPN(std::string operation)
 		}
 		i++;
 	}
-	std::cout <<"Result = " <<_numbers.top() <<std::endl;
+	std::cout /* <<"Result = " */ <<_numbers.top() <<std::endl;
 }

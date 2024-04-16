@@ -25,18 +25,14 @@ int main(int argc, char **argv)
 		PmergeMe<std::vector<int> > pmergeVector(vector);
 		clock_t end = clock();
 
-
 		std::vector<int> sorted_vector = pmergeVector.getSortedArray();
-
 		std::cout << "After:";
 		for (std::vector<int>::iterator it = sorted_vector.begin(); it != sorted_vector.end(); it++)
 			std::cout << " " << *it;
-		std::cout << std::endl << std::endl;
-
+		std::cout << std::endl;
 
 		std::cout << "Time to process a range of " <<argc -1 <<" elements with std::vector : " \
 		<<(double)(end - start) <<" us" <<std::endl;
-		std::cout << std::endl;
 	}
 	catch(const std::exception& e)
 	{
@@ -46,8 +42,15 @@ int main(int argc, char **argv)
 	try
 	{
 		clock_t start = clock();
-		PmergeMe<std::list<int> > pmergeVector(list);
+		PmergeMe<std::list<int> > pmergeList(list);
 		clock_t end = clock();
+
+/* 		std::list<int> sorted_list = pmergeList.getSortedArray();
+		std::cout << "After:";
+		for (std::list<int>::iterator it = sorted_list.begin(); it != sorted_list.end(); it++)
+			std::cout << " " << *it;
+		std::cout << std::endl; */
+
 		std::cout << "Time to process a range of " <<argc -1 <<" elements with std::list : " \
 		<<(double)(end - start) <<" us" <<std::endl;
 	}
