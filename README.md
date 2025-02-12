@@ -39,7 +39,7 @@ To set up this project locally, follow these steps:
 	```
  2. **Go to the exercice you want to test and run it**
     ```sh
-	cd Module00\ex00
+	cd Module00/ex00
     make
     ./megaphone
 	```
