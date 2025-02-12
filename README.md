@@ -10,21 +10,21 @@ Master the C++ programming language by completing practical exercises and projec
 1. Basic Syntax:
   - Variables, data types, loops, conditionals.
   - Functions and scope.
-
+\
 2. Object-Oriented Programming:
   - Classes and objects.
   - Encapsulation, inheritance, and polymorphism.
   - Operator overloading.
-
+\
 3. Memory Management:
   - Pointers and references.
   - Dynamic memory allocation (new, delete).
-
+\
 4. Advanced Features:
   - Templates and generic programming.
   - Exception handling.
   - Namespaces.
-
+\
 5. Standard Template Library (STL):
   - Containers (vectors, lists, maps, etc.).
   - Algorithms and iterators.
